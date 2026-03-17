@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакти & Запази час – Семейна Дентална Клиника Зъбчо</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #FFD93D; --yellow-light: #FFF8E1; --yellow-mid: #FFE97A;
+      --blue: #6EC6FF; --blue-light: #E3F2FD; --blue-mid: #B3E0FF; --blue-dark: #2196F3;
+      --white: #ffffff; --text: #2D3748; --text-light: #718096;
+      --green: #4CAF50; --green-light: #E8F5E9;
+      --radius: 20px; --radius-lg: 32px;
+      --shadow: 0 8px 32px rgba(110,198,255,0.18); --shadow-yellow: 0 8px 32px rgba(255,217,61,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: var(--yellow-light); color: var(--text); overflow-x: hidden; }
+
+    /* NAV */
+    nav { background: var(--white); box-shadow: 0 4px 20px rgba(110,198,255,0.15); position: sticky; top: 0; z-index: 1000; padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--blue-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 42px; height: 42px; background: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; animation: wiggle 3s ease-in-out infinite; }
+    @keyframes wiggle { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--text); transition: color 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 3px; background: var(--yellow); border-radius: 2px; transition: width 0.3s; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-dark); }
+    .nav-cta { background: var(--yellow) !important; color: var(--text) !important; padding: 10px 22px !important; border-radius: 50px !important; font-weight: 700 !important; box-shadow: var(--shadow-yellow); transition: transform 0.2s !important; }
+    .nav-cta:hover { transform: translateY(-2px) scale(1.04) !important; }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 26px; height: 3px; background: var(--text); border-radius: 3px; }
+
+    /* PAGE HERO */
+    .page-hero { background: linear-gradient(135deg, var(--blue-light) 0%, var(--yellow-light) 100%); padding: 80px 2rem 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; bottom: -50px; right: 10%; width: 220px; height: 220px; background: var(--yellow-mid); border-radius: 50%; opacity: 0.28; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-breadcrumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 16px; }
+    .page-breadcrumb a { color: var(--blue-dark); text-decoration: none; }
+    .page-hero h1 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); color: var(--text); margin-bottom: 16px; animation: slideUp 0.7s both; }
+    .page-hero h1 span { color: var(--blue-dark); }
+    .page-hero p { color: var(--text-light); font-size: 1.08rem; line-height: 1.8; animation: slideUp 0.7s 0.2s both; }
+    @keyframes slideUp { from { transform: translateY(25px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* INFO CARDS */
+    .info-section { padding: 60px 2rem 0; background: var(--white); }
+    .info-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .info-card { border-radius: var(--radius); padding: 30px 22px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+    .info-card:hover { transform: translateY(-6px); }
+    .info-card.yellow { background: var(--yellow-light); border: 2px solid var(--yellow); }
+    .info-card.yellow:hover { box-shadow: var(--shadow-yellow); }
+    .info-card.blue { background: var(--blue-light); border: 2px solid var(--blue-mid); }
+    .info-card.blue:hover { box-shadow: var(--shadow); }
+    .info-icon { font-size: 2.4rem; margin-bottom: 14px; }
+    .info-title { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+    .info-text { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; }
+    .info-text a { color: var(--blue-dark); text-decoration: none; font-weight: 600; }
+    .info-text a:hover { text-decoration: underline; }
+
+    /* MAIN SECTION */
+    .main-section { padding: 70px 2rem 80px; background: var(--white); }
+    .main-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: start; }
+
+    /* MAP + HOURS */
+    .contact-left { display: flex; flex-direction: column; gap: 32px; }
+    .map-wrap { border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+    .map-placeholder { width: 100%; height: 280px; background: linear-gradient(135deg, var(--blue-light), var(--yellow-light)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+    .map-placeholder .map-emoji { font-size: 3.5rem; }
+    .map-placeholder .map-text { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1.1rem; color: var(--blue-dark); }
+    .map-placeholder .map-addr { font-size: 0.88rem; color: var(--text-light); }
+    .map-link { display: block; text-align: center; padding: 14px; background: var(--blue-dark); color: var(--white); font-family: 'Baloo 2', cursive; font-weight: 700; text-decoration: none; transition: background 0.2s; font-size: 0.95rem; }
+    .map-link:hover { background: #1565C0; }
+
+    .hours-card { background: var(--yellow-light); border-radius: var(--radius); padding: 28px 24px; border: 2px solid var(--yellow); }
+    .hours-title { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1.1rem; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .hours-list { display: flex; flex-direction: column; gap: 10px; }
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 10px; background: var(--white); font-size: 0.91rem; }
+    .hours-row.open { border-left: 3px solid var(--green); }
+    .hours-row.closed { border-left: 3px solid #EF5350; opacity: 0.7; }
+    .hours-day { font-weight: 600; }
+    .hours-time { color: var(--blue-dark); font-weight: 700; font-family: 'Baloo 2', cursive; }
+    .hours-badge { font-size: 0.75rem; background: var(--green); color: var(--white); padding: 2px 8px; border-radius: 50px; font-weight: 700; }
+    .hours-badge.closed-badge { background: #EF5350; }
+
+    .social-card { background: var(--blue-light); border-radius: var(--radius); padding: 24px; border: 2px solid var(--blue-mid); }
+    .social-title { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; margin-bottom: 16px; }
+    .social-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .social-btn { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 50px; text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
+    .social-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .social-btn.fb { background: #1877F2; color: white; }
+    .social-btn.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+    .social-btn.yt { background: #FF0000; color: white; }
+
+    /* FORM */
+    .form-section { }
+    .form-card { background: var(--white); border-radius: var(--radius-lg); padding: 48px 42px; box-shadow: 0 20px 60px rgba(110,198,255,0.15); border: 2px solid var(--yellow); position: relative; overflow: hidden; }
+    .form-card::before { content: '🦷'; position: absolute; font-size: 8rem; opacity: 0.04; bottom: -20px; right: -10px; }
+    .form-header { margin-bottom: 32px; }
+    .form-badge { display: inline-block; background: var(--yellow); color: var(--text); font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.85rem; padding: 5px 16px; border-radius: 50px; margin-bottom: 12px; }
+    .form-header h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.9rem; color: var(--text); margin-bottom: 8px; }
+    .form-header h2 span { color: var(--blue-dark); }
+    .form-header p { color: var(--text-light); font-size: 0.93rem; line-height: 1.7; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .form-group:last-of-type { margin-bottom: 0; }
+    label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    label span { color: #EF5350; }
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid var(--blue-mid);
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.93rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--blue-dark); box-shadow: 0 0 0 4px rgba(33,150,243,0.1); }
+    input::placeholder, textarea::placeholder { color: var(--text-light); }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23718096' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+    textarea { resize: vertical; min-height: 110px; }
+    .form-kids-row { display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: var(--yellow-light); border-radius: 12px; border: 2px solid var(--yellow); margin-bottom: 18px; }
+    .form-kids-row input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--yellow); flex-shrink: 0; }
+    .form-kids-row label { font-size: 0.9rem; margin: 0; cursor: pointer; }
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 50px;
+      background: var(--yellow);
+      color: var(--text);
+      font-family: 'Baloo 2', cursive;
+      font-weight: 800;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-yellow);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-submit:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 36px rgba(255,217,61,0.5); }
+    .btn-submit:active { transform: scale(0.99); }
+    .form-note { margin-top: 16px; font-size: 0.82rem; color: var(--text-light); text-align: center; line-height: 1.6; }
+
+    /* SUCCESS MESSAGE */
+    .success-msg { display: none; background: var(--green-light); border: 2px solid var(--green); border-radius: var(--radius); padding: 24px; text-align: center; margin-top: 20px; }
+    .success-msg .emoji { font-size: 3rem; margin-bottom: 10px; }
+    .success-msg h3 { font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--green); font-size: 1.3rem; margin-bottom: 6px; }
+    .success-msg p { font-size: 0.9rem; color: var(--text-light); }
+
+    /* FAQ */
+    .faq-section { padding: 80px 2rem; background: linear-gradient(135deg, var(--blue-light) 0%, var(--yellow-light) 100%); }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .section-label { display: inline-block; background: var(--yellow); color: var(--text); font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.85rem; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; }
+    .section-title { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--text); margin-bottom: 16px; }
+    .section-title span { color: var(--blue-dark); }
+    .faq-list { display: flex; flex-direction: column; gap: 14px; margin-top: 40px; }
+    .faq-item { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .faq-question { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: none; border: none; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; color: var(--text); text-align: left; gap: 16px; transition: background 0.2s; }
+    .faq-question:hover { background: var(--yellow-light); }
+    .faq-question.open { background: var(--yellow); }
+    .faq-arrow { font-size: 1.2rem; transition: transform 0.3s; flex-shrink: 0; }
+    .faq-question.open .faq-arrow { transform: rotate(180deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; padding: 0 24px; font-size: 0.93rem; color: var(--text-light); line-height: 1.7; }
+    .faq-answer.open { max-height: 300px; padding: 16px 24px 24px; }
+
+    /* EMERGENCY */
+    .emergency-section { padding: 60px 2rem; background: #EF5350; text-align: center; }
+    .emergency-inner { max-width: 700px; margin: 0 auto; }
+    .emergency-inner h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.6rem, 2.5vw, 2.2rem); color: var(--white); margin-bottom: 12px; }
+    .emergency-inner p { color: rgba(255,255,255,0.88); font-size: 1rem; margin-bottom: 28px; line-height: 1.7; }
+    .emergency-tel { display: inline-flex; align-items: center; gap: 12px; background: var(--white); color: #EF5350; padding: 16px 36px; border-radius: 50px; font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.3rem; text-decoration: none; box-shadow: 0 8px 28px rgba(0,0,0,0.2); transition: transform 0.2s; }
+    .emergency-tel:hover { transform: scale(1.05); }
+    .tel-icon { font-size: 1.5rem; animation: ring 2s ease-in-out infinite; }
+    @keyframes ring { 0%,100% { transform: rotate(0); } 10%,30% { transform: rotate(-15deg); } 20%,40% { transform: rotate(15deg); } 50% { transform: rotate(0); } }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.8); padding: 60px 2rem 30px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { color: var(--yellow); margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
+    .footer-col h4 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; color: var(--yellow); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--yellow); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+
+    @media (max-width: 1024px) {
+      .info-inner { grid-template-columns: repeat(2, 1fr); }
+      .main-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 20px 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); gap: 14px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .info-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Начало</a></li>
+      <li><a href="about.html">За нас</a></li>
+      <li><a href="services.html">Услуги</a></li>
+      <li><a href="prices.html">Ценоразпис</a></li>
+      <li><a href="contact.html" class="nav-cta active">Запази час</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-breadcrumb"><a href="index.html">Начало</a> → Контакти</div>
+    <h1>Свържете се <span>с нас</span></h1>
+    <p>Готови сме да отговорим на всичките ви въпроси и да запазим удобен час за вас и вашето семейство.</p>
+  </div>
+</section>
+
+<!-- INFO CARDS -->
+<section class="info-section">
+  <div class="info-inner">
+    <div class="info-card yellow">
+      <div class="info-icon">📍</div>
+      <div class="info-title">Адрес</div>
+      <div class="info-text">бул. Витоша 42, ет. 2<br>1463 София<br><a href="#">Виж на картата →</a></div>
+    </div>
+    <div class="info-card blue">
+      <div class="info-icon">📞</div>
+      <div class="info-title">Телефон</div>
+      <div class="info-text"><a href="tel:+35929876543">029 876 543</a><br><a href="tel:+359888123456">0888 123 456</a><br><span style="font-size:0.8rem;">Пон–Съб 9:00–19:00</span></div>
+    </div>
+    <div class="info-card yellow">
+      <div class="info-icon">✉️</div>
+      <div class="info-title">Имейл</div>
+      <div class="info-text"><a href="mailto:info@zabcho.bg">info@zabcho.bg</a><br><a href="mailto:zapazichas@zabcho.bg">zapazichas@zabcho.bg</a></div>
+    </div>
+    <div class="info-card blue">
+      <div class="info-icon">🕒</div>
+      <div class="info-title">Работно време</div>
+      <div class="info-text">Пон–Пет: <strong>9:00–19:00</strong><br>Събота: <strong>9:00–14:00</strong><br>Неделя: Почивен ден</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN SECTION -->
+<section class="main-section">
+  <div class="main-inner">
+
+    <!-- LEFT: MAP + HOURS + SOCIAL -->
+    <div class="contact-left">
+      <div class="map-wrap">
+        <div class="map-placeholder">
+          <div class="map-emoji">🗺️</div>
+          <div class="map-text">Семейна Дентална Клиника Зъбчо</div>
+          <div class="map-addr">бул. Витоша 42, ет. 2, София</div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" class="map-link">🗺️ Отвори в Google Maps</a>
+      </div>
+
+      <div class="hours-card">
+        <div class="hours-title">🕒 Работно време</div>
+        <div class="hours-list">
+          <div class="hours-row open">
+            <div class="hours-day">Понеделник</div>
+            <div style="display:flex;align-items:center;gap:8px;"><span class="hours-time">9:00 – 19:00</span><span class="hours-badge">Отворено</span></div>
+          </div>
+          <div class="hours-row open">
+            <div class="hours-day">Вторник</div>
+            <span class="hours-time">9:00 – 19:00</span>
+          </div>
+          <div class="hours-row open">
+            <div class="hours-day">Сряда</div>
+            <span class="hours-time">9:00 – 19:00</span>
+          </div>
+          <div class="hours-row open">
+            <div class="hours-day">Четвъртък</div>
+            <span class="hours-time">9:00 – 19:00</span>
+          </div>
+          <div class="hours-row open">
+            <div class="hours-day">Петък</div>
+            <span class="hours-time">9:00 – 19:00</span>
+          </div>
+          <div class="hours-row open">
+            <div class="hours-day">Събота</div>
+            <div style="display:flex;align-items:center;gap:8px;"><span class="hours-time">9:00 – 14:00</span><span class="hours-badge">Само деца</span></div>
+          </div>
+          <div class="hours-row closed">
+            <div class="hours-day">Неделя</div>
+            <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Baloo 2',cursive; font-weight:700; color:#EF5350;">Почивен ден</span><span class="hours-badge closed-badge">Затворено</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-card">
+        <div class="social-title">🌐 Следете ни в социалните мрежи</div>
+        <div class="social-links">
+          <a href="#" class="social-btn fb">👍 Facebook</a>
+          <a href="#" class="social-btn ig">📷 Instagram</a>
+          <a href="#" class="social-btn yt">▶️ YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="form-section">
+      <div class="form-card">
+        <div class="form-header">
+          <div class="form-badge">🗓 Запази час онлайн</div>
+          <h2>Заявете <span>удобен час</span></h2>
+          <p>Попълнете формата и ще се свържем с вас в рамките на 2 часа за потвърждение. Бързо, лесно и приятно!</p>
+        </div>
+
+        <form id="appointmentForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Ime <span>*</span></label>
+              <input type="text" id="fname" name="fname" placeholder="Вашето първо иÌме" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Фамилия <span>*</span></label>
+              <input type="text" id="lname" name="lname" placeholder="Вашата фамилия" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Телефон <span>*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="0888 123 456" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email адрес</label>
+              <input type="email" id="email" name="email" placeholder="vashiat@email.bg">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Желана услуга <span>*</span></label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>— Изберете услуга —</option>
+              <optgroup label="🔩 Имплантология">
+                <option value="implant-consult">Консултация за имплант</option>
+                <option value="implant-placement">Поставяне на имплант</option>
+                <option value="implant-crown">Корона на имплант</option>
+              </optgroup>
+              <optgroup label="😁 Ортодонтия">
+                <option value="ortho-consult">Ортодонтска консултация</option>
+                <option value="braces-metal">Метални брекети</option>
+                <option value="braces-clear">Прозрачни алайнери</option>
+              </optgroup>
+              <optgroup label="✨ Избелване">
+                <option value="whitening-clinic">Клинично избелване</option>
+                <option value="whitening-home">Домашно избелване</option>
+              </optgroup>
+              <optgroup label="🦷 Протезиране">
+                <option value="crown">Зъбна корона</option>
+                <option value="bridge">Мост</option>
+                <option value="denture">Протеза</option>
+              </optgroup>
+              <optgroup label="👶 Детска стоматология">
+                <option value="kids-first">Първи детски преглед</option>
+                <option value="kids-treatment">Детско лечение</option>
+                <option value="kids-ortho">Детска ортодонтия</option>
+              </optgroup>
+              <optgroup label="🛡️ Общо">
+                <option value="checkup">Профилактичен преглед</option>
+                <option value="cleaning">Почистване зъбен камък</option>
+                <option value="xray">Рентген</option>
+                <option value="filling">Пломба</option>
+                <option value="extraction">Изваждане на зъб</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Предпочитана дата <span>*</span></label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="time">Предпочитано време</label>
+              <select id="time" name="time">
+                <option value="" disabled selected>— Изберете час —</option>
+                <option value="9:00">9:00 – 10:00</option>
+                <option value="10:00">10:00 – 11:00</option>
+                <option value="11:00">11:00 – 12:00</option>
+                <option value="13:00">13:00 – 14:00</option>
+                <option value="14:00">14:00 – 15:00</option>
+                <option value="15:00">15:00 – 16:00</option>
+                <option value="16:00">16:00 – 17:00</option>
+                <option value="17:00">17:00 – 18:00</option>
+                <option value="18:00">18:00 – 19:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="patient-type">Вид пациент</label>
+            <select id="patient-type" name="patient-type">
+              <option value="adult">Възрастен (18+)</option>
+              <option value="child">Дете (до 17 г.)</option>
+              <option value="family">Цяло семейство (няколко члена)</option>
+              <option value="senior">Пенсионер (65+)</option>
+            </select>
+          </div>
+
+          <div class="form-kids-row">
+            <input type="checkbox" id="firstVisit" name="firstVisit">
+            <label for="firstVisit">🌟 Това е моето <strong>първо посещение</strong> в клиниката (ще получите специален прием!)</label>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Бележки / Допълнителна информация</label>
+            <textarea id="notes" name="notes" placeholder="Напишете всичко, което смятате за важно – симптоми, въпроси, специфични нужди на вашето дете и т.н."></textarea>
+          </div>
+
+          <div class="form-kids-row">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">Съгласен/на съм с <a href="#" style="color:var(--blue-dark);">Политиката за поверителност</a> и обработката на личните ми данни. <span style="color:#EF5350;">*</span></label>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>🗓</span> Изпрати заявката
+          </button>
+
+          <p class="form-note">✅ Ще получите потвърждение по имейл или телефон в рамките на 2 работни часа.<br>Безплатна консултация при първо посещение!</p>
+        </form>
+
+        <div class="success-msg" id="successMsg">
+          <div class="emoji">🎉</div>
+          <h3>Заявката е изпратена успешно!</h3>
+          <p>Ще се свържем с вас скоро за потвърждение. Очакваме ви в клиниката! 😊</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div style="text-align:center; margin-bottom:16px;">
+      <div class="section-label">❓ Въпроси</div>
+      <h2 class="section-title">Често задавани <span>въпроси</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" data-faq="0">
+          Как да запиша час за дете? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          Можете да запишете час за вашето дете директно от формата на тази страница – просто изберете услуга от секция "Детска стоматология". Можете да ни позвъните и на 029 876 543. Първият преглед за деца до 6 години е безплатен!
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-faq="1">
+          Какво да очакваме при първото посещение? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          При първото посещение ще направим пълен профилактичен преглед, ще обсъдим вашата дентална история и ще съставим индивидуален план за лечение. Прегледът отнема около 30–45 минути. Не се притеснявайте – ние сме много търпеливи!
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-faq="2">
+          Предлагате ли спешни часове? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          Да! Запазваме ежедневно часове за спешни случаи. При болка, счупен зъб или друг неотложен проблем – обадете се на 0888 123 456 и ще намерим час за вас в рамките на деня.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-faq="3">
+          Имате ли паркинг? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          Клиниката се намира на бул. Витоша 42, ет. 2. В близост има платен паркинг (синя зона). На 200м е и метростанция "НДК". Лесно се достига с автобуси 9, 72, 94.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-faq="4">
+          Работите ли с НЗОК? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          Да, работим с НЗОК за основни дейности – профилактичен преглед, почистване и екстракции. За повече информация попитайте на рецепция. Повечето специализирани лечения са по частна цена с опция за разсрочено плащане.
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" data-faq="5">
+          Боли ли детето по време на лечение? <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-answer">
+          Използваме специални кремове за местна анестезия преди всяка инжекция, така че детето почти не усеща убождането. Работим изключително бавно и внимателно с децата. 95% от нашите малки пациенти идват отново без страх!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section class="emergency-section">
+  <div class="emergency-inner">
+    <h2>🚨 Спешна дентална помощ</h2>
+    <p>Силна болка или зъбна криза? Не чакайте! Обадете се на нашата спешна линия и ще ви приемем в рамките на деня.</p>
+    <a href="tel:+359888123456" class="emergency-tel">
+      <span class="tel-icon">📞</span>
+      0888 123 456
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+      <p>Семейна Дентална Клиника Зъбчо – вашият партньор за здрави и красиви усмивки от 2009 година.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="services.html">Имплантология</a></li>
+        <li><a href="services.html">Ортодонтия</a></li>
+        <li><a href="services.html">Избелване</a></li>
+        <li><a href="services.html">Протезиране</a></li>
+        <li><a href="services.html">Детска стоматология</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a href="tel:+35929876543">📞 029 876 543</a></li>
+        <li><a href="mailto:info@zabcho.bg">✉️ info@zabcho.bg</a></li>
+        <li><a href="#">📍 бул. Витоша 42, София</a></li>
+        <li><a href="#">🕒 Пон–Пет: 9:00–19:00</a></li>
+        <li><a href="#">🕒 Съб: 9:00–14:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Семейна Дентална Клиника Зъбчо. Всички права запазени.</span>
+    <span>Направено с ❤️ за вашата усмивка</span>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  // Set min date to today
+  const dateInput = document.getElementById('date');
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
+  dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+  // Form submission
+  document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fname = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+    const date = document.getElementById('date').value;
+    const consent = document.getElementById('consent').checked;
+
+    if (!fname || !phone || !service || !date || !consent) {
+      alert('Моля, попълнете всички задължителни полета (маркирани с *).');
+      return;
+    }
+
+    this.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('successMsg').offsetTop - 100, behavior: 'smooth' });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const allQuestions = document.querySelectorAll('.faq-question');
+      const allAnswers = document.querySelectorAll('.faq-answer');
+      const isOpen = this.classList.contains('open');
+      allQuestions.forEach(q => q.classList.remove('open'));
+      allAnswers.forEach(a => a.classList.remove('open'));
+      if (!isOpen) {
+        this.classList.add('open');
+        this.nextElementSibling.classList.add('open');
+      }
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.info-card, .faq-item').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; observer.observe(el);
+  });
+</script>
+</body>
+</html>

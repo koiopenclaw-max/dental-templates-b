@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Усмивка Дентал – Услуги</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --coral: #FF6B6B;
+      --coral-dark: #e85555;
+      --coral-light: #ffe0e0;
+      --white: #ffffff;
+      --off-white: #fff8f8;
+      --text: #3d2c2c;
+      --text-light: #7a5c5c;
+      --radius: 20px;
+      --shadow: 0 8px 30px rgba(255,107,107,0.15);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Comfortaa', cursive; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--white); box-shadow: 0 2px 20px rgba(255,107,107,0.12); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo .logo-icon { font-size: 2rem; animation: wobble 3s ease-in-out infinite; }
+    @keyframes wobble { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+    .nav-logo span { font-family: 'Comfortaa', cursive; font-size: 1.25rem; font-weight: 700; color: var(--coral); }
+    .nav-links { display: flex; gap: 6px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-weight: 600; font-size: 0.95rem; padding: 8px 16px; border-radius: 50px; transition: background 0.25s, color 0.25s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--coral); color: var(--white); }
+    .nav-cta { background: var(--coral); color: var(--white) !important; border-radius: 50px !important; padding: 10px 22px !important; box-shadow: 0 4px 14px rgba(255,107,107,0.4); }
+    .nav-cta:hover { transform: translateY(-2px); background: var(--coral-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger span { display: block; width: 26px; height: 3px; background: var(--coral); border-radius: 3px; }
+
+    /* PAGE HERO */
+    .page-hero { background: linear-gradient(135deg, var(--off-white) 0%, #ffe8e8 100%); padding: 70px 8% 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: '🦷'; position: absolute; right: 5%; top: 50%; transform: translateY(-50%); font-size: 16rem; opacity: 0.05; }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--coral); text-decoration: none; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 16px; }
+    .page-hero h1 em { color: var(--coral); font-style: normal; }
+    .page-hero p { font-size: 1.1rem; color: var(--text-light); max-width: 580px; margin: 0 auto; line-height: 1.8; }
+
+    /* FILTER TABS */
+    .filter-section { padding: 30px 8% 0; text-align: center; }
+    .filter-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .filter-tab { background: var(--off-white); color: var(--text); border: 2px solid var(--coral-light); padding: 10px 22px; border-radius: 50px; font-family: 'Comfortaa', cursive; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; }
+    .filter-tab:hover, .filter-tab.active { background: var(--coral); color: var(--white); border-color: var(--coral); }
+
+    /* SECTIONS */
+    section { padding: 80px 8%; }
+    .section-tag { display: inline-block; background: var(--coral-light); color: var(--coral); font-weight: 700; font-size: 0.82rem; padding: 6px 16px; border-radius: 50px; margin-bottom: 12px; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-title { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 14px; }
+    .section-sub { color: var(--text-light); font-size: 1.05rem; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+
+    /* SERVICE DETAIL CARDS */
+    .service-detail {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      padding: 70px 8%; border-bottom: 1px solid #ffe8e8;
+    }
+    .service-detail:nth-child(even) .service-detail-img { order: 2; }
+    .service-detail:nth-child(even) .service-detail-content { order: 1; }
+    .service-detail:last-child { border-bottom: none; }
+    .service-detail-img { position: relative; }
+    .service-detail-img img { width: 100%; height: 380px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); transition: transform 0.4s; }
+    .service-detail-img:hover img { transform: scale(1.03); }
+    .service-num {
+      position: absolute; top: -16px; left: -16px;
+      width: 52px; height: 52px; border-radius: 16px;
+      background: var(--coral); color: var(--white);
+      font-family: 'Comfortaa', cursive; font-size: 1.4rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(255,107,107,0.45);
+    }
+    .service-detail-content .service-icon-big { font-size: 3.5rem; margin-bottom: 16px; display: block; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .service-detail-content h2 { font-size: clamp(1.6rem, 2.8vw, 2.2rem); margin-bottom: 16px; }
+    .service-detail-content p { color: var(--text-light); line-height: 1.8; margin-bottom: 20px; font-size: 1rem; }
+    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .benefits-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; }
+    .benefit-check { width: 22px; height: 22px; min-width: 22px; background: var(--coral-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--coral); }
+    .price-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--coral-light); color: var(--coral); font-weight: 700; padding: 10px 20px; border-radius: 50px; font-size: 0.95rem; margin-bottom: 20px; }
+    .btn-primary { background: var(--coral); color: var(--white); padding: 14px 32px; border-radius: 50px; font-family: 'Comfortaa', cursive; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(255,107,107,0.4); transition: transform 0.25s, box-shadow 0.25s; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(255,107,107,0.5); }
+
+    /* MINI SERVICES */
+    .mini-services-section { background: var(--off-white); }
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .mini-card { background: var(--white); border-radius: var(--radius); padding: 24px 20px; text-align: center; box-shadow: 0 3px 14px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; }
+    .mini-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .mini-icon { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+    .mini-card h4 { font-size: 0.95rem; margin-bottom: 6px; }
+    .mini-card p { font-size: 0.82rem; color: var(--text-light); }
+
+    /* CTA BAND */
+    .cta-band { background: linear-gradient(135deg, var(--coral) 0%, #ff9a9a 100%); color: var(--white); text-align: center; padding: 70px 8%; }
+    .cta-band h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 14px; }
+    .cta-band p { font-size: 1.1rem; margin-bottom: 32px; opacity: 0.92; }
+    .btn-white { background: var(--white); color: var(--coral); padding: 14px 34px; border-radius: 50px; font-family: 'Comfortaa', cursive; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.25s; }
+    .btn-white:hover { transform: translateY(-3px); }
+
+    /* FOOTER */
+    footer { background: #2d1f1f; color: #e8d5d5; padding: 60px 8% 30px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { font-family: 'Comfortaa', cursive; font-size: 1.4rem; font-weight: 700; color: var(--coral); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .footer-about { font-size: 0.88rem; line-height: 1.7; opacity: 0.75; margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .social-btn { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,107,107,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; text-decoration: none; transition: background 0.25s; }
+    .social-btn:hover { background: var(--coral); }
+    .footer-col h4 { font-family: 'Comfortaa', cursive; color: var(--coral); margin-bottom: 16px; font-size: 0.95rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: #e8d5d5; text-decoration: none; font-size: 0.88rem; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
+    .footer-col ul li a:hover { opacity: 1; color: var(--coral); }
+    .footer-contact-item { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; opacity: 0.75; margin-bottom: 10px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; opacity: 0.55; flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 900px) {
+      .service-detail { grid-template-columns: 1fr; gap: 30px; padding: 60px 5%; }
+      .service-detail:nth-child(even) .service-detail-img { order: 0; }
+      .service-detail:nth-child(even) .service-detail-content { order: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--white); padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); gap: 4px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 60px 5%; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-icon">😁</span>
+    <span>Усмивка Дентал</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Начало</a></li>
+    <li><a href="about.html">За нас</a></li>
+    <li><a href="services.html" class="active">Услуги</a></li>
+    <li><a href="prices.html">Ценоразпис</a></li>
+    <li><a href="contact.html" class="nav-cta">Запази час</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="breadcrumb"><a href="index.html">Начало</a> › Услуги</div>
+  <h1>Нашите <em>Дентални Услуги</em></h1>
+  <p>Пълен спектър от услуги за вашата усмивка – от профилактика до сложни импланти и ортодонтия.</p>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-section">
+  <div class="filter-tabs">
+    <a href="#implantology" class="filter-tab active">🦷 Имплантология</a>
+    <a href="#orthodontics" class="filter-tab">😁 Ортодонтия</a>
+    <a href="#whitening" class="filter-tab">✨ Избелване</a>
+    <a href="#prosthetics" class="filter-tab">🩺 Протезиране</a>
+    <a href="#children" class="filter-tab">🧒 Детска стоматология</a>
+  </div>
+</div>
+
+<!-- SERVICE 1: IMPLANTOLOGY -->
+<div class="service-detail" id="implantology">
+  <div class="service-detail-img">
+    <div class="service-num">01</div>
+    <img src="https://images.unsplash.com/photo-1609840113483-5b3b27cce17c?w=700&q=80" alt="Имплантология" />
+  </div>
+  <div class="service-detail-content">
+    <span class="service-icon-big">🦷</span>
+    <div class="section-tag">ИМПЛАНТОЛОГИЯ</div>
+    <h2>Зъбни импланти – трайно решение</h2>
+    <p>Зъбните импланти са най-съвременното и трайно решение за замяна на липсващи зъби. Те се интегрират в костта и функционират точно като естествен зъб.</p>
+    <p>Използваме импланти от водещите световни производители – Straumann и Nobel Biocare, с гаранция за качество и дълготрайност.</p>
+    <div class="price-badge">💰 от 1200 лв на имплант</div>
+    <ul class="benefits-list">
+      <li><span class="benefit-check">✓</span> Трайност над 20 години при правилна грижа</li>
+      <li><span class="benefit-check">✓</span> Изглед и усещане на естествен зъб</li>
+      <li><span class="benefit-check">✓</span> Предотвратява костна загуба</li>
+      <li><span class="benefit-check">✓</span> Не се налага обработка на съседни зъби</li>
+      <li><span class="benefit-check">✓</span> Пълна функционалност при хранене</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">📅 Запази консултация</a>
+  </div>
+</div>
+
+<!-- SERVICE 2: ORTHODONTICS -->
+<div class="service-detail" id="orthodontics">
+  <div class="service-detail-content">
+    <span class="service-icon-big">😁</span>
+    <div class="section-tag">ОРТОДОНТИЯ</div>
+    <h2>Перфектно наредени зъби</h2>
+    <p>Ортодонтското лечение коригира неправилното захапване и наредба на зъбите, постигайки хармонична и красива усмивка. Предлагаме традиционни метални брекети, естетични керамични брекети и прозрачни алайнери Invisalign.</p>
+    <p>Лечението при нас е строго индивидуализирано – всеки пациент получава план, съобразен с конкретните му нужди и очаквания.</p>
+    <div class="price-badge">💰 от 2500 лв пълен курс</div>
+    <ul class="benefits-list">
+      <li><span class="benefit-check">✓</span> Метални, керамични и сапфирени брекети</li>
+      <li><span class="benefit-check">✓</span> Прозрачни алайнери Invisalign</li>
+      <li><span class="benefit-check">✓</span> Подходящо за деца и възрастни</li>
+      <li><span class="benefit-check">✓</span> Дигитално планиране с 3D симулация</li>
+      <li><span class="benefit-check">✓</span> Ретенери след лечението включени</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">📅 Запази консултация</a>
+  </div>
+  <div class="service-detail-img">
+    <div class="service-num">02</div>
+    <img src="https://images.unsplash.com/photo-1570612861542-284f4c12e75f?w=700&q=80" alt="Ортодонтия" />
+  </div>
+</div>
+
+<!-- SERVICE 3: WHITENING -->
+<div class="service-detail" id="whitening">
+  <div class="service-detail-img">
+    <div class="service-num">03</div>
+    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=700&q=80" alt="Избелване на зъби" />
+  </div>
+  <div class="service-detail-content">
+    <span class="service-icon-big">✨</span>
+    <div class="section-tag">ИЗБЕЛВАНЕ</div>
+    <h2>Ослепителна бяла усмивка</h2>
+    <p>Професионалното избелване в кабинет е безопасен и ефективен начин да постигнете до 8 нюанса по-бели зъби в рамките на само един час. Използваме системата Zoom! WhiteSpeed – световен лидер в избелването.</p>
+    <p>Предлагаме и домашно избелване с индивидуални шини, изработени специално за вас – за удобство и контрол на резултата.</p>
+    <div class="price-badge">💰 от 350 лв</div>
+    <ul class="benefits-list">
+      <li><span class="benefit-check">✓</span> До 8 нюанса по-бели зъби</li>
+      <li><span class="benefit-check">✓</span> Безопасна процедура без увреждане на емайла</li>
+      <li><span class="benefit-check">✓</span> Резултат в рамките на 1 час</li>
+      <li><span class="benefit-check">✓</span> Дълготрайни резултати</li>
+      <li><span class="benefit-check">✓</span> Включени кит за домашна поддръжка</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">📅 Запази консултация</a>
+  </div>
+</div>
+
+<!-- SERVICE 4: PROSTHETICS -->
+<div class="service-detail" id="prosthetics">
+  <div class="service-detail-content">
+    <span class="service-icon-big">🩺</span>
+    <div class="section-tag">ПРОТЕЗИРАНЕ</div>
+    <h2>Индивидуални протези и коронки</h2>
+    <p>Предлагаме пълен спектър от протетични решения – единични коронки, мостове, частични и цели протези. Всички изработени прецизно, за да пасват перфектно и да изглеждат напълно естествено.</p>
+    <p>Разполагаме с CAD/CAM система, която позволява изработване на циркониеви коронки в рамките на един ден – без чакане и повторни посещения.</p>
+    <div class="price-badge">💰 от 350 лв на коронка</div>
+    <ul class="benefits-list">
+      <li><span class="benefit-check">✓</span> Метало-керамични и циркониеви коронки</li>
+      <li><span class="benefit-check">✓</span> Порцеланови фасети за естетични корекции</li>
+      <li><span class="benefit-check">✓</span> Мостове върху естествени зъби и импланти</li>
+      <li><span class="benefit-check">✓</span> Снемаеми частични и цели протези</li>
+      <li><span class="benefit-check">✓</span> Коронки за 1 ден с CAD/CAM технология</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">📅 Запази консултация</a>
+  </div>
+  <div class="service-detail-img">
+    <div class="service-num">04</div>
+    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&q=80" alt="Протезиране" />
+  </div>
+</div>
+
+<!-- SERVICE 5: CHILDREN -->
+<div class="service-detail" id="children">
+  <div class="service-detail-img">
+    <div class="service-num">05</div>
+    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=700&q=80" alt="Детска стоматология" />
+  </div>
+  <div class="service-detail-content">
+    <span class="service-icon-big">🧒</span>
+    <div class="section-tag">ДЕТСКА СТОМАТОЛОГИЯ</div>
+    <h2>Детска дентална грижа с усмивка</h2>
+    <p>Вярваме, че добрите навици започват от малки. Нашият детски кабинет е специално проектиран да бъде цветен, приятелски и забавен, за да превърнем посещението при зъболекаря в приключение, а не страх.</p>
+    <p>Д-р Николова е специализирала детска дентална медицина и работи по специални протоколи за деца с различни нужди, в т.ч. деца с тревожност и специални потребности.</p>
+    <div class="price-badge">💰 от 40 лв преглед</div>
+    <ul class="benefits-list">
+      <li><span class="benefit-check">✓</span> Специално обзаведен детски кабинет</li>
+      <li><span class="benefit-check">✓</span> Лечение без стрес и страх</li>
+      <li><span class="benefit-check">✓</span> Профилактика и запечатване на ямички</li>
+      <li><span class="benefit-check">✓</span> Флуоридна профилактика</li>
+      <li><span class="benefit-check">✓</span> Обучение на родители за домашна хигиена</li>
+    </ul>
+    <a href="contact.html" class="btn-primary">📅 Запази час за детето</a>
+  </div>
+</div>
+
+<!-- MINI SERVICES -->
+<section class="mini-services-section">
+  <div class="section-header">
+    <div class="section-tag">ДОПЪЛНИТЕЛНИ УСЛУГИ</div>
+    <h2 class="section-title">И още много за вашата усмивка</h2>
+    <p class="section-sub">Предлагаме и редица допълнителни процедури.</p>
+  </div>
+  <div class="mini-grid">
+    <div class="mini-card"><span class="mini-icon">🔍</span><h4>Профилактичен преглед</h4><p>Пълен преглед с рентгенография и план за лечение.</p></div>
+    <div class="mini-card"><span class="mini-icon">🧼</span><h4>Почистване на зъбен камък</h4><p>Ултразвуково почистване и полиране.</p></div>
+    <div class="mini-card"><span class="mini-icon">🪥</span><h4>Лечение на кариес</h4><p>Естетични светлополимерни пломби.</p></div>
+    <div class="mini-card"><span class="mini-icon">💊</span><h4>Ендодонтия</h4><p>Лечение на кореновите канали с ротационни системи.</p></div>
+    <div class="mini-card"><span class="mini-icon">🏥</span><h4>Хирургия</h4><p>Вадене на зъби, включително осмица, под местна анестезия.</p></div>
+    <div class="mini-card"><span class="mini-icon">😴</span><h4>Лечение под седация</h4><p>За тревожни пациенти – лечение под интравенозна седация.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Готови да запазите час?</h2>
+  <p>Свържете се с нас и ние ще намерим най-доброто решение за вас!</p>
+  <a href="contact.html" class="btn-white">📅 Запази час сега</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">😁 Усмивка Дентал</div>
+      <p class="footer-about">Вашата семейна дентална клиника в сърцето на София. Грижим се за вашата усмивка с любов и професионализъм от 2012 г.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="#implantology">Имплантология</a></li>
+        <li><a href="#orthodontics">Ортодонтия</a></li>
+        <li><a href="#whitening">Избелване</a></li>
+        <li><a href="#prosthetics">Протезиране</a></li>
+        <li><a href="#children">Детска стоматология</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <div class="footer-contact-item">📍 бул. Витоша 42, София 1000</div>
+      <div class="footer-contact-item">📞 +359 2 123 4567</div>
+      <div class="footer-contact-item">✉️ info@usmivkadental.bg</div>
+      <div class="footer-contact-item">⏰ Пон–Пет: 09:00–19:00</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Усмивка Дентал. Всички права запазени.</span>
+    <span>Направено с ❤️ в София</span>
+  </div>
+</footer>
+
+</body>
+</html>

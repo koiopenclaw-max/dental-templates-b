@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НеоДент Технолоджи – Контакти</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --bg2: #1a1a2e;
+    --cyan: #00f5ff; --cyan-dim: rgba(0,245,255,0.12);
+    --cyan-glow: 0 0 10px #00f5ff, 0 0 30px #00f5ff55;
+    --text: #e0e0e0; --text-muted: #888;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; overflow-x: hidden; }
+  body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px); pointer-events: none; z-index: 9999; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,245,255,0.2); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .nav-logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--cyan); text-decoration: none; text-shadow: var(--cyan-glow); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--text); text-decoration: none; font-family: 'Exo 2', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--cyan); box-shadow: var(--cyan-glow); transition: width 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--cyan); text-shadow: var(--cyan-glow); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cyan); margin: 5px 0; box-shadow: var(--cyan-glow); }
+
+  /* PAGE HERO */
+  .page-hero { padding-top: 70px; min-height: 300px; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .page-hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1629909615185-37563089884d?w=1600&q=80') center/cover; filter: brightness(0.1) saturate(1.4); z-index: 0; }
+  .page-hero-grid { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px); background-size: 60px 60px; animation: gridMove 20s linear infinite; }
+  @keyframes gridMove { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+  .page-hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; width: 100%; }
+  .breadcrumb { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 3px; margin-bottom: 1rem; text-transform: uppercase; }
+  .breadcrumb span { color: var(--cyan); }
+  .page-hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem,5vw,3.5rem); font-weight: 900; color: #fff; text-shadow: 0 0 40px rgba(0,245,255,0.4); }
+  .page-hero h1 span { color: var(--cyan); text-shadow: var(--cyan-glow); }
+
+  /* SHARED */
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--cyan); letter-spacing: 5px; text-transform: uppercase; display: block; margin-bottom: 1rem; text-shadow: var(--cyan-glow); }
+  .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.5rem,3.5vw,2.5rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 1.5rem; }
+  .text-cyan { color: var(--cyan); text-shadow: var(--cyan-glow); }
+
+  /* CONTACT MAIN */
+  .contact-main { padding: 5rem 2rem; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+
+  /* INFO PANEL */
+  .info-panel { }
+  .info-block { margin-bottom: 2.5rem; }
+  .info-block-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+  .info-icon { width: 42px; height: 42px; border: 1px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; box-shadow: var(--cyan-glow); }
+  .info-block-header h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; }
+  .info-block p, .info-block a { color: var(--text-muted); font-size: 0.92rem; line-height: 1.8; text-decoration: none; display: block; transition: color 0.3s; }
+  .info-block a:hover { color: var(--cyan); }
+
+  /* HOURS */
+  .hours-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .hours-table tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .hours-table td { padding: 8px 0; font-size: 0.88rem; color: var(--text-muted); }
+  .hours-table td:first-child { color: var(--text); }
+  .hours-table td:last-child { text-align: right; color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 0.78rem; }
+  .hours-table tr.closed td { opacity: 0.45; }
+
+  /* SOCIAL */
+  .social-links { display: flex; gap: 1rem; margin-top: 0.5rem; }
+  .social-btn { width: 44px; height: 44px; border: 1px solid rgba(0,245,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; cursor: pointer; text-decoration: none; }
+  .social-btn:hover { border-color: var(--cyan); box-shadow: var(--cyan-glow); transform: scale(1.1); }
+
+  /* BOOKING FORM */
+  .form-wrapper {
+    background: var(--bg2); border: 1px solid rgba(0,245,255,0.15);
+    padding: 2.5rem; position: relative; overflow: hidden;
+  }
+  .form-wrapper::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); animation: scanLine 3s linear infinite; }
+  @keyframes scanLine { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  .form-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; margin-bottom: 0.4rem; }
+  .form-subtitle { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { display: block; font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.6rem; text-shadow: var(--cyan-glow); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,245,255,0.2);
+    color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 0.92rem;
+    padding: 12px 16px; outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: #1a1a2e; color: var(--text); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan), 0 0 20px rgba(0,245,255,0.1);
+    background: rgba(0,245,255,0.04);
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(136,136,136,0.6); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) hue-rotate(160deg) saturate(4); cursor: pointer; }
+
+  .form-consent { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.8rem; }
+  .form-consent input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--cyan); flex-shrink: 0; margin-top: 2px; cursor: pointer; }
+  .form-consent label { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; cursor: pointer; }
+  .form-consent a { color: var(--cyan); text-decoration: none; }
+
+  .btn-submit {
+    width: 100%; padding: 16px; background: transparent; border: 2px solid var(--cyan);
+    color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+    font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+    position: relative; overflow: hidden; transition: color 0.3s, box-shadow 0.3s;
+    box-shadow: var(--cyan-glow);
+  }
+  .btn-submit::before { content: ''; position: absolute; inset: 0; background: var(--cyan); transform: translateY(101%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); z-index: 0; }
+  .btn-submit span { position: relative; z-index: 1; }
+  .btn-submit:hover { color: #0a0a0a; box-shadow: 0 0 40px #00f5ff, 0 0 80px #00f5ff44; }
+  .btn-submit:hover::before { transform: translateY(0); }
+
+  /* SUCCESS MESSAGE */
+  .success-msg { display: none; text-align: center; padding: 3rem 2rem; }
+  .success-msg .s-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px #00f5ff); }
+  .success-msg h3 { font-family: 'Orbitron', sans-serif; color: var(--cyan); margin-bottom: 0.8rem; text-shadow: var(--cyan-glow); }
+  .success-msg p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+
+  /* MAP PLACEHOLDER */
+  .map-section { padding: 0 2rem 5rem; }
+  .map-wrapper { max-width: 1200px; margin: 0 auto; border: 1px solid rgba(0,245,255,0.15); position: relative; overflow: hidden; }
+  .map-wrapper iframe { width: 100%; height: 380px; display: block; filter: invert(0.9) hue-rotate(180deg) saturate(0.7) brightness(0.8); border: none; }
+  .map-overlay-badge {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    background: rgba(10,10,10,0.9); border: 1px solid var(--cyan);
+    padding: 1rem 1.4rem; box-shadow: var(--cyan-glow);
+  }
+  .map-overlay-badge h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--cyan); margin-bottom: 0.3rem; text-shadow: var(--cyan-glow); }
+  .map-overlay-badge p { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* FAQ */
+  .faq-section { padding: 5rem 2rem; background: var(--bg2); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px; margin: 3rem auto 0; }
+  .faq-item { border: 1px solid rgba(0,245,255,0.1); padding: 1.8rem; transition: border-color 0.3s; }
+  .faq-item:hover { border-color: rgba(0,245,255,0.3); }
+  .faq-item h4 { font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #fff; margin-bottom: 0.8rem; line-height: 1.4; }
+  .faq-item p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* FOOTER */
+  footer { background: #050508; border-top: 1px solid rgba(0,245,255,0.15); padding: 3rem 2rem 1.5rem; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+  .footer-brand p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.8; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; text-shadow: var(--cyan-glow); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+  .footer-col ul li a:hover { color: var(--cyan); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } .faq-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(10,10,10,0.98); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,245,255,0.2); }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .map-wrapper iframe { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">НЕО<span style="color:#fff">ДЕНТ</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Начало</a></li>
+    <li><a href="about.html">За нас</a></li>
+    <li><a href="services.html">Услуги</a></li>
+    <li><a href="prices.html">Ценоразпис</a></li>
+    <li><a href="contact.html" class="active">Контакти</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">НеоДент / <span>Контакти</span></div>
+    <h1>Свържете се<br>с нас <span>сега</span></h1>
+  </div>
+</div>
+
+<!-- CONTACT MAIN -->
+<section class="contact-main">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- INFO -->
+      <div class="info-panel">
+        <span class="section-tag">// Намерете ни</span>
+        <h2 class="section-title" style="font-size:1.8rem;">Информация за <span class="text-cyan">контакт</span></h2>
+
+        <div class="info-block">
+          <div class="info-block-header">
+            <div class="info-icon">📍</div>
+            <h4>Адрес</h4>
+          </div>
+          <a href="#">бул. Технологичен 42, ет. 3<br>1784 София, България</a>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-header">
+            <div class="info-icon">📞</div>
+            <h4>Телефон</h4>
+          </div>
+          <a href="tel:+35929876543">+359 2 987 6543</a>
+          <a href="tel:+359887654321" style="margin-top:0.3rem;">+359 887 654 321 (мобилен)</a>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-header">
+            <div class="info-icon">✉️</div>
+            <h4>Имейл</h4>
+          </div>
+          <a href="mailto:info@neodent.bg">info@neodent.bg</a>
+          <a href="mailto:appointments@neodent.bg" style="margin-top:0.3rem;">appointments@neodent.bg</a>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-header">
+            <div class="info-icon">🕐</div>
+            <h4>Работно време</h4>
+          </div>
+          <table class="hours-table">
+            <tr><td>Понеделник – Петък</td><td>08:00 – 20:00</td></tr>
+            <tr><td>Събота</td><td>09:00 – 15:00</td></tr>
+            <tr class="closed"><td>Неделя</td><td>Почивен ден</td></tr>
+          </table>
+        </div>
+
+        <div class="info-block">
+          <div class="info-block-header">
+            <div class="info-icon">🌐</div>
+            <h4>Социални мрежи</h4>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-btn" title="Facebook">f</a>
+            <a href="#" class="social-btn" title="Instagram">in</a>
+            <a href="#" class="social-btn" title="YouTube">▶</a>
+            <a href="#" class="social-btn" title="LinkedIn">Li</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKING FORM -->
+      <div class="form-wrapper" id="formWrapper">
+        <h3 class="form-title">Запази час онлайн</h3>
+        <p class="form-subtitle">Попълнете формата и ще се свържем с вас в рамките на 2 часа в работния ден.</p>
+
+        <form id="bookingForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">Собствено ime</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Иван" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Фамилия</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Петров" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" placeholder="+359 88 XXX XXXX" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Имейл адрес</label>
+              <input type="email" id="email" name="email" placeholder="ivan@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Желана услуга</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>-- Изберете услуга --</option>
+              <optgroup label="Имплантология">
+                <option value="implant-consult">Консултация за импланти</option>
+                <option value="implant-single">Единичен имплант</option>
+                <option value="implant-allon4">All-on-4 / All-on-6</option>
+              </optgroup>
+              <optgroup label="Ортодонтия">
+                <option value="ortho-consult">Ортодонтска консултация</option>
+                <option value="invisalign">Invisalign алайнери</option>
+                <option value="braces">Брекети</option>
+              </optgroup>
+              <optgroup label="Естетична денталика">
+                <option value="whitening">Избелване на зъби</option>
+                <option value="veneers">Фасети / Ламинати</option>
+                <option value="crown">Коронка / Мост</option>
+              </optgroup>
+              <optgroup label="Общо">
+                <option value="checkup">Профилактичен преглед</option>
+                <option value="cleaning">Почистване на зъбен камък</option>
+                <option value="pediatric">Детски преглед</option>
+                <option value="emergency">Спешен случай</option>
+                <option value="other">Друго</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Предпочитана дата</label>
+              <input type="date" id="date" name="date">
+            </div>
+            <div class="form-group">
+              <label for="time">Предпочитан час</label>
+              <select id="time" name="time">
+                <option value="" disabled selected>-- Изберете час --</option>
+                <option>08:00 – 09:00</option>
+                <option>09:00 – 10:00</option>
+                <option>10:00 – 11:00</option>
+                <option>11:00 – 12:00</option>
+                <option>13:00 – 14:00</option>
+                <option>14:00 – 15:00</option>
+                <option>15:00 – 16:00</option>
+                <option>16:00 – 17:00</option>
+                <option>17:00 – 18:00</option>
+                <option>18:00 – 19:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Допълнителни бележки</label>
+            <textarea id="notes" name="notes" placeholder="Опишете накратко вашия проблем или въпрос. Имате ли алергии или хронични заболявания, за които трябва да знаем?"></textarea>
+          </div>
+
+          <div class="form-consent">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">Съгласен/а съм с <a href="#">Политиката за поверителност</a> и <a href="#">Условията за ползване</a> на НеоДент Технолоджи.</label>
+          </div>
+
+          <button type="submit" class="btn-submit"><span>◆ Запази час сега ◆</span></button>
+        </form>
+
+        <div class="success-msg" id="successMsg">
+          <div class="s-icon">✅</div>
+          <h3>Часът е запазен!</h3>
+          <p>Благодарим ви! Ще се свържем с вас на посочения телефон или имейл в рамките на 2 часа в работния ден за потвърждение на часа.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="container">
+    <div class="map-wrapper">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=23.3200%2C42.6600%2C23.3600%2C42.6800&layer=mapnik&marker=42.6700%2C23.3400"
+        title="НеоДент Технолоджи — Карта"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="map-overlay-badge">
+        <h4>НеоДент Технолоджи</h4>
+        <p>бул. Технологичен 42, ет. 3<br>1784 София</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="section-tag">// Чести въпроси</span>
+      <h2 class="section-title">Имате <span class="text-cyan">въпроси?</span></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>Как да запазя час онлайн?</h4>
+        <p>Попълнете формата на тази страница или ни се обадете на посочения телефон. Ще ви потвърдим часа в рамките на 2 часа.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Работите ли при спешни случаи?</h4>
+        <p>Да, запазваме ежедневни слотове за спешни случаи. При остра болка или счупен зъб се свържете с нас незабавно.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Болезнено ли е лечението?</h4>
+        <p>Използваме компютъризирана STA анестезия за безболезнено инжектиране. Повечето процедури са напълно безболезнени.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Как се осъществява плащането?</h4>
+        <p>Приемаме карти, кеш и банков превод. Предлагаме до 24 месеца безлихвено разсрочване при процедури над 1000 лв.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Имате ли паркинг?</h4>
+        <p>Да, разполагаме с безплатен паркинг за 20 автомобила в двора на сградата.</p>
+      </div>
+      <div class="faq-item">
+        <h4>От каква възраст приемате деца?</h4>
+        <p>Приемаме деца от 2-годишна възраст. Препоръчваме първи преглед веднага след поникване на млечните зъби.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="font-size:1.4rem;">НЕО<span style="color:#fff">ДЕНТ</span></div>
+      <p>НеоДент Технолоджи е авангардна дентална клиника, съчетаваща най-съвременните технологии с индивидуален подход към всеки пациент.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="services.html">Имплантология</a></li>
+        <li><a href="services.html">Ортодонтия</a></li>
+        <li><a href="services.html">Избелване</a></li>
+        <li><a href="services.html">Протезиране</a></li>
+        <li><a href="services.html">Детска денталика</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a href="#">бул. Технологичен 42, София</a></li>
+        <li><a href="tel:+35929876543">+359 2 987 6543</a></li>
+        <li><a href="mailto:info@neodent.bg">info@neodent.bg</a></li>
+        <li><a href="#">Пн–Пт: 08:00–20:00</a></li>
+        <li><a href="#">Сб: 09:00–15:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 НеоДент Технолоджи ЕООД. Всички права запазени.</p>
+  </div>
+</footer>
+
+<script>
+function submitForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('bookingForm');
+  const success = document.getElementById('successMsg');
+  form.style.opacity = '0';
+  form.style.transition = 'opacity 0.4s';
+  setTimeout(() => {
+    form.style.display = 'none';
+    success.style.display = 'block';
+    success.style.opacity = '0';
+    setTimeout(() => { success.style.transition = 'opacity 0.4s'; success.style.opacity = '1'; }, 50);
+  }, 400);
+}
+// Set min date to today
+const dateInput = document.getElementById('date');
+if (dateInput) {
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+}
+</script>
+
+</body>
+</html>

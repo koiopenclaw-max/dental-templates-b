@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ценоразпис – Семейна Дентална Клиника Зъбчо</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #FFD93D; --yellow-light: #FFF8E1; --yellow-mid: #FFE97A;
+      --blue: #6EC6FF; --blue-light: #E3F2FD; --blue-mid: #B3E0FF; --blue-dark: #2196F3;
+      --white: #ffffff; --text: #2D3748; --text-light: #718096;
+      --green: #4CAF50; --green-light: #E8F5E9;
+      --radius: 20px; --radius-lg: 32px;
+      --shadow: 0 8px 32px rgba(110,198,255,0.18); --shadow-yellow: 0 8px 32px rgba(255,217,61,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: var(--yellow-light); color: var(--text); overflow-x: hidden; }
+
+    nav { background: var(--white); box-shadow: 0 4px 20px rgba(110,198,255,0.15); position: sticky; top: 0; z-index: 1000; padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--blue-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 42px; height: 42px; background: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; animation: wiggle 3s ease-in-out infinite; }
+    @keyframes wiggle { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--text); transition: color 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 3px; background: var(--yellow); border-radius: 2px; transition: width 0.3s; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-dark); }
+    .nav-cta { background: var(--yellow) !important; color: var(--text) !important; padding: 10px 22px !important; border-radius: 50px !important; font-weight: 700 !important; box-shadow: var(--shadow-yellow); transition: transform 0.2s !important; }
+    .nav-cta:hover { transform: translateY(-2px) scale(1.04) !important; }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 26px; height: 3px; background: var(--text); border-radius: 3px; }
+
+    .page-hero { background: linear-gradient(135deg, var(--yellow-light) 0%, var(--blue-light) 100%); padding: 80px 2rem 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -50px; left: 10%; width: 200px; height: 200px; background: var(--yellow-mid); border-radius: 50%; opacity: 0.3; animation: float 7s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-breadcrumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 16px; }
+    .page-breadcrumb a { color: var(--blue-dark); text-decoration: none; }
+    .page-hero h1 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); color: var(--text); margin-bottom: 16px; animation: slideUp 0.7s both; }
+    .page-hero h1 span { color: var(--blue-dark); }
+    .page-hero p { color: var(--text-light); font-size: 1.08rem; line-height: 1.8; animation: slideUp 0.7s 0.2s both; }
+    @keyframes slideUp { from { transform: translateY(25px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* SECTION */
+    .section-label { display: inline-block; background: var(--yellow); color: var(--text); font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.85rem; padding: 5px 16px; border-radius: 50px; margin-bottom: 14px; }
+    .section-title { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--text); margin-bottom: 16px; }
+    .section-title span { color: var(--blue-dark); }
+
+    /* PRICE PACKAGES */
+    .packages-section { padding: 80px 2rem; background: var(--white); }
+    .packages-inner { max-width: 1100px; margin: 0 auto; }
+    .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px; }
+    .package-card { border-radius: var(--radius-lg); padding: 42px 32px; text-align: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; border: 2px solid transparent; }
+    .package-card:hover { transform: translateY(-10px); }
+    .package-card.basic { background: var(--yellow-light); border-color: var(--yellow); }
+    .package-card.basic:hover { box-shadow: var(--shadow-yellow); }
+    .package-card.popular { background: var(--blue-dark); color: var(--white); border-color: var(--blue-dark); transform: scale(1.04); }
+    .package-card.popular:hover { transform: scale(1.04) translateY(-10px); box-shadow: 0 24px 60px rgba(33,150,243,0.4); }
+    .package-card.premium { background: var(--blue-light); border-color: var(--blue-mid); }
+    .package-card.premium:hover { box-shadow: var(--shadow); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: var(--text); font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.82rem; padding: 5px 18px; border-radius: 50px; white-space: nowrap; }
+    .package-icon { font-size: 2.8rem; margin-bottom: 16px; animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .package-name { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.4rem; margin-bottom: 6px; }
+    .package-card.popular .package-name { color: var(--yellow); }
+    .package-sub { font-size: 0.88rem; opacity: 0.7; margin-bottom: 24px; }
+    .package-price { font-family: 'Baloo 2', cursive; font-size: 3rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .package-card.popular .package-price { color: var(--white); }
+    .package-unit { font-size: 0.85rem; opacity: 0.65; margin-bottom: 28px; }
+    .package-features { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+    .package-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+    .check { width: 22px; height: 22px; border-radius: 50%; background: var(--yellow); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+    .package-card.popular .check { background: var(--yellow); color: var(--text); }
+    .cross { width: 22px; height: 22px; border-radius: 50%; background: rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; opacity: 0.5; }
+    .pkg-btn { display: block; padding: 13px 26px; border-radius: 50px; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; text-align: center; }
+    .pkg-btn-yellow { background: var(--yellow); color: var(--text); box-shadow: var(--shadow-yellow); }
+    .pkg-btn-yellow:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(255,217,61,0.45); }
+    .pkg-btn-white { background: var(--white); color: var(--blue-dark); }
+    .pkg-btn-white:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(255,255,255,0.3); }
+    .pkg-btn-blue { background: var(--blue-dark); color: var(--white); box-shadow: 0 6px 20px rgba(33,150,243,0.3); }
+    .pkg-btn-blue:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(33,150,243,0.45); }
+
+    /* PRICE TABLES */
+    .price-tables { padding: 80px 2rem; background: var(--yellow-light); }
+    .price-tables-inner { max-width: 1100px; margin: 0 auto; }
+    .price-table-group { margin-bottom: 60px; }
+    .table-title { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--text); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .table-title .emoji { font-size: 1.6rem; }
+    .price-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .price-table thead { background: var(--yellow); }
+    .price-table th { padding: 16px 22px; text-align: left; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .price-table th:last-child { text-align: right; }
+    .price-table tbody tr { border-bottom: 1px solid var(--yellow-light); transition: background 0.2s; }
+    .price-table tbody tr:last-child { border-bottom: none; }
+    .price-table tbody tr:hover { background: var(--blue-light); }
+    .price-table td { padding: 14px 22px; font-size: 0.92rem; color: var(--text); }
+    .price-table td:last-child { text-align: right; font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--blue-dark); font-size: 1rem; }
+    .price-note { font-size: 0.8rem; color: var(--text-light); font-weight: 400; }
+    .kids-row td { background: #FFFDE7; }
+    .kids-row td:first-child::before { content: '👶 '; }
+
+    /* FAMILY DISCOUNT */
+    .family-discount { padding: 80px 2rem; background: var(--blue-dark); position: relative; overflow: hidden; }
+    .family-discount::before { content: ''; position: absolute; top: -80px; right: -60px; width: 350px; height: 350px; background: rgba(255,217,61,0.1); border-radius: 50%; }
+    .family-discount-inner { max-width: 1100px; margin: 0 auto; }
+    .family-discount h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.8rem, 2.5vw, 2.4rem); color: var(--white); margin-bottom: 14px; text-align: center; }
+    .family-discount h2 span { color: var(--yellow); }
+    .family-discount .sub { text-align: center; color: rgba(255,255,255,0.75); font-size: 1rem; margin-bottom: 50px; }
+    .discount-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .discount-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius); padding: 36px 26px; text-align: center; transition: transform 0.3s, background 0.3s; }
+    .discount-card:hover { transform: translateY(-6px); background: rgba(255,217,61,0.12); }
+    .discount-amount { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: var(--yellow); line-height: 1; margin-bottom: 10px; }
+    .discount-title { font-family: 'Baloo 2', cursive; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .discount-desc { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+    /* KIDS PRICING HIGHLIGHT */
+    .kids-pricing { padding: 80px 2rem; background: var(--white); }
+    .kids-pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .kids-pricing-card { background: linear-gradient(135deg, #FFFDE7 0%, var(--blue-light) 100%); border-radius: var(--radius-lg); padding: 50px 40px; border: 3px solid var(--yellow); box-shadow: var(--shadow-yellow); display: grid; grid-template-columns: 1fr 2fr; gap: 50px; align-items: start; }
+    .kids-pricing-left { text-align: center; }
+    .kids-big-emoji { font-size: 5rem; display: block; animation: wobble 3s ease-in-out infinite; }
+    @keyframes wobble { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+    .kids-pricing-left h3 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.4rem; margin: 12px 0 8px; }
+    .kids-pricing-left p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+    .kids-table { width: 100%; border-collapse: collapse; }
+    .kids-table tr { border-bottom: 1px solid rgba(255,217,61,0.3); transition: background 0.2s; }
+    .kids-table tr:last-child { border-bottom: none; }
+    .kids-table tr:hover { background: rgba(255,217,61,0.1); }
+    .kids-table td { padding: 12px 16px; font-size: 0.92rem; }
+    .kids-table td:last-child { font-family: 'Baloo 2', cursive; font-weight: 700; color: var(--blue-dark); text-align: right; }
+    .kids-table th { background: var(--yellow); font-family: 'Baloo 2', cursive; font-weight: 700; padding: 13px 16px; font-size: 0.9rem; }
+    .kids-table th:last-child { text-align: right; }
+    .free-badge { display: inline-block; background: var(--green); color: var(--white); font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; margin-left: 8px; }
+
+    /* PAYMENT */
+    .payment-section { padding: 60px 2rem; background: var(--yellow-light); }
+    .payment-inner { max-width: 1100px; margin: 0 auto; }
+    .payment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+    .payment-card { background: var(--white); border-radius: var(--radius); padding: 28px 20px; text-align: center; box-shadow: var(--shadow); transition: transform 0.3s; }
+    .payment-card:hover { transform: translateY(-6px); }
+    .payment-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .payment-name { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .payment-desc { font-size: 0.84rem; color: var(--text-light); line-height: 1.6; }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.8); padding: 60px 2rem 30px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { color: var(--yellow); margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
+    .footer-col h4 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; color: var(--yellow); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--yellow); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+
+    @media (max-width: 1024px) {
+      .packages-grid { grid-template-columns: 1fr; max-width: 500px; margin: 40px auto 0; }
+      .package-card.popular { transform: none; }
+      .discount-cards { grid-template-columns: 1fr; }
+      .payment-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 20px 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); gap: 14px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .kids-pricing-card { grid-template-columns: 1fr; text-align: center; padding: 36px 24px; }
+      .price-table { font-size: 0.88rem; }
+      .price-table td, .price-table th { padding: 12px 14px; }
+    }
+    @media (max-width: 480px) {
+      .payment-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Начало</a></li>
+      <li><a href="about.html">За нас</a></li>
+      <li><a href="services.html">Услуги</a></li>
+      <li><a href="prices.html" class="active">Ценоразпис</a></li>
+      <li><a href="contact.html" class="nav-cta">Запази час</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-breadcrumb"><a href="index.html">Начало</a> → Ценоразпис</div>
+    <h1>Честни и <span>прозрачни цени</span></h1>
+    <p>Без скрити такси, без изненади. Предлагаме справедливи цени за качествено лечение и специални отстъпки за семейства.</p>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages-section">
+  <div class="packages-inner">
+    <div style="text-align:center;">
+      <div class="section-label">💎 Пакети</div>
+      <h2 class="section-title">Семейни <span>пакети за превенция</span></h2>
+      <p style="color:var(--text-light); max-width:540px; margin:0 auto; line-height:1.7;">Запишете цялото семейство и спестете! Пакетите включват редовни прегледи и профилактично почистване.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="package-card basic">
+        <div class="package-icon">⭐</div>
+        <div class="package-name">Базов пакет</div>
+        <div class="package-sub">За 1 човек / месечно</div>
+        <div class="package-price">29 <span style="font-size:1.4rem;">лв.</span></div>
+        <div class="package-unit">на месец</div>
+        <ul class="package-features">
+          <li><div class="check">✓</div>2 прегледа годишно</li>
+          <li><div class="check">✓</div>1 почистване зъбен камък</li>
+          <li><div class="check">✓</div>Рентген включен</li>
+          <li><div class="check">✓</div>5% отстъпка от лечения</li>
+          <li><div class="cross">✗</div><span style="opacity:0.5">Детска отстъпка</span></li>
+          <li><div class="cross">✗</div><span style="opacity:0.5">Приоритетни часове</span></li>
+        </ul>
+        <a href="contact.html" class="pkg-btn pkg-btn-yellow">Избери →</a>
+      </div>
+
+      <div class="package-card popular">
+        <div class="popular-badge">⭐ Най-популярен</div>
+        <div class="package-icon">👨‍👩‍👧</div>
+        <div class="package-name">Семеен пакет</div>
+        <div class="package-sub">За 2–4 члена / месечно</div>
+        <div class="package-price" style="color:var(--yellow);">69 <span style="font-size:1.4rem; color:var(--white);">лв.</span></div>
+        <div class="package-unit" style="color:rgba(255,255,255,0.65);">на месец за семейство</div>
+        <ul class="package-features" style="color:var(--white);">
+          <li><div class="check">✓</div>4 прегледа годишно</li>
+          <li><div class="check">✓</div>Почистване за всички</li>
+          <li><div class="check">✓</div>Рентгени включени</li>
+          <li><div class="check">✓</div>10% отстъпка от лечения</li>
+          <li><div class="check">✓</div>Деца до 14 г. – БЕЗПЛАТЕН преглед</li>
+          <li><div class="check">✓</div>Приоритетни часове</li>
+        </ul>
+        <a href="contact.html" class="pkg-btn pkg-btn-white">Избери →</a>
+      </div>
+
+      <div class="package-card premium">
+        <div class="package-icon">👑</div>
+        <div class="package-name">Премиум пакет</div>
+        <div class="package-sub">За 5+ члена / месечно</div>
+        <div class="package-price">109 <span style="font-size:1.4rem;">лв.</span></div>
+        <div class="package-unit">на месец за семейство</div>
+        <ul class="package-features">
+          <li><div class="check">✓</div>Неограничени прегледи</li>
+          <li><div class="check">✓</div>2 почиствания годишно</li>
+          <li><div class="check">✓</div>Всички рентгени</div></li>
+          <li><div class="check">✓</div>15% отстъпка от всички лечения</li>
+          <li><div class="check">✓</div>Деца – 30% отстъпка</li>
+          <li><div class="check">✓</div>Домашно избелване – включено</li>
+        </ul>
+        <a href="contact.html" class="pkg-btn pkg-btn-blue">Избери →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE TABLES -->
+<section class="price-tables">
+  <div class="price-tables-inner">
+    <div style="text-align:center; margin-bottom:56px;">
+      <div class="section-label">💰 Ценоразпис</div>
+      <h2 class="section-title">Детайлен <span>ценоразпис</span></h2>
+      <p style="color:var(--text-light); max-width:540px; margin:0 auto; line-height:1.7;">Всички цени са в български лева (лв.) и включват ДДС. Окончателната цена се определя след преглед.</p>
+    </div>
+
+    <div class="price-table-group">
+      <div class="table-title"><span class="emoji">🔩</span>Имплантология</div>
+      <table class="price-table">
+        <thead><tr><th>Процедура</th><th>Описание</th><th>Цена (лв.)</th></tr></thead>
+        <tbody>
+          <tr><td>Зъбен имплант</td><td>Поставяне на имплант (без корона)</td><td>1 200 лв.</td></tr>
+          <tr><td>Порцеланова корона на имплант</td><td>Индивидуално изработена</td><td>680 лв.</td></tr>
+          <tr><td>Циркониева корона на имплант</td><td>Без метал, висока естетика</td><td>850 лв.</td></tr>
+          <tr><td>Цялостен имплант с корона</td><td>Имплант + абатмент + корона</td><td>2 200 лв.</td></tr>
+          <tr><td>Синус лифтинг</td><td>При нужда от костна аугментация</td><td>от 800 лв.</td></tr>
+          <tr><td>All-on-4 протокол</td><td>Пълна зъбна дъга на 4 импланта</td><td>от 12 000 лв.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-table-group">
+      <div class="table-title"><span class="emoji">😁</span>Ортодонтия</div>
+      <table class="price-table">
+        <thead><tr><th>Процедура</th><th>Описание</th><th>Цена (лв.)</th></tr></thead>
+        <tbody>
+          <tr><td>Ортодонтска консултация</td><td>Преглед и план на лечение</td><td>60 лв.</td></tr>
+          <tr><td>Метални брекети</td><td>Пълен комплект, месечна такса</td><td>150 лв./мес.</td></tr>
+          <tr><td>Керамични брекети</td><td>По-естетични, по-малко видими</td><td>200 лв./мес.</td></tr>
+          <tr><td>Невидими алайнери</td><td>Invisalign или подобни системи</td><td>от 4 500 лв.</td></tr>
+          <tr class="kids-row"><td>Детски брекети (до 18 г.)</td><td>20% намаление</td><td>120 лв./мес.</td></tr>
+          <tr><td>Ретенер</td><td>След приключване на лечение</td><td>от 180 лв.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-table-group">
+      <div class="table-title"><span class="emoji">✨</span>Избелване</div>
+      <table class="price-table">
+        <thead><tr><th>Процедура</th><th>Описание</th><th>Цена (лв.)</th></tr></thead>
+        <tbody>
+          <tr><td>Клинично избелване</td><td>1 посещение, до 8 нюанса по-бели</td><td>350 лв.</td></tr>
+          <tr><td>Домашно избелване</td><td>Шини + гел за 2 седмици</td><td>250 лв.</td></tr>
+          <tr><td>Комбинирано избелване</td><td>Клинично + домашно – най-добри резултати</td><td>500 лв.</td></tr>
+          <tr><td>Поддръжка на избелване</td><td>Гел за 1 цикъл</td><td>80 лв.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-table-group">
+      <div class="table-title"><span class="emoji">🦷</span>Протезиране</div>
+      <table class="price-table">
+        <thead><tr><th>Процедура</th><th>Описание</th><th>Цена (лв.)</th></tr></thead>
+        <tbody>
+          <tr><td>Метало-керамична корона</td><td>Стандартна, трайна</td><td>400 лв.</td></tr>
+          <tr><td>Циркониева корона</td><td>Без метал, висока естетика</td><td>600 лв.</td></tr>
+          <tr><td>Мост (3 члена)</td><td>Метало-керамика</td><td>от 1 100 лв.</td></tr>
+          <tr><td>Частична протеза</td><td>Акрилова или металрамкова</td><td>от 700 лв.</td></tr>
+          <tr><td>Пълна протеза</td><td>Горна или долна</td><td>от 900 лв.</td></tr>
+          <tr><td>Временна корона</td><td>По време на изработка</td><td>80 лв.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-table-group">
+      <div class="table-title"><span class="emoji">🛡️</span>Профилактика и общо лечение</div>
+      <table class="price-table">
+        <thead><tr><th>Процедура</th><th>Описание</th><th>Цена (лв.)</th></tr></thead>
+        <tbody>
+          <tr><td>Профилактичен преглед</td><td>Основен преглед + консултация</td><td>60 лв.</td></tr>
+          <tr><td>Почистване зъбен камък</td><td>Ултразвуково почистване + полиране</td><td>100 лв.</td></tr>
+          <tr><td>Дигитален рентген (1 зъб)</td><td>Вътреустен</td><td>25 лв.</td></tr>
+          <tr><td>Панорамен рентген</td><td>Извънустен</td><td>60 лв.</td></tr>
+          <tr><td>Обтурация (пломба)</td><td>Светлополимерна</td><td>от 100 лв.</td></tr>
+          <tr><td>Ендодонтия (канален)</td><td>1-коренов зъб</td><td>от 200 лв.</td></tr>
+          <tr><td>Екстракция</td><td>Просто изваждане</td><td>от 80 лв.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILY DISCOUNT -->
+<section class="family-discount">
+  <div class="family-discount-inner">
+    <div class="section-label" style="display:block; text-align:center; width:fit-content; margin:0 auto 16px;">💛 Семейни отстъпки</div>
+    <h2>Повече <span>семейство = повече спестявания</span></h2>
+    <p class="sub">Ние ценим семействата, които ни се доверяват. Специални отстъпки за всички членове!</p>
+    <div class="discount-cards">
+      <div class="discount-card">
+        <div class="discount-amount">10%</div>
+        <div class="discount-title">👪 Семейна отстъпка</div>
+        <div class="discount-desc">При записване на 2 или повече членове от едно семейство получавате 10% отстъпка от всички лечения.</div>
+      </div>
+      <div class="discount-card">
+        <div class="discount-amount">20%</div>
+        <div class="discount-title">👶 Детска отстъпка</div>
+        <div class="discount-desc">Деца до 14 години получават 20% отстъпка от всички процедури. Първият преглед е безплатен!</div>
+      </div>
+      <div class="discount-card">
+        <div class="discount-amount">15%</div>
+        <div class="discount-title">👴 Пенсионерска отстъпка</div>
+        <div class="discount-desc">Всички пенсионери получават 15% отстъпка. Предлагаме специални часове в сутринта без чакане.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIDS PRICING -->
+<section class="kids-pricing">
+  <div class="kids-pricing-inner">
+    <div style="text-align:center; margin-bottom:40px;">
+      <div class="section-label">👶 За децата</div>
+      <h2 class="section-title">Специален <span>ценоразпис за деца</span></h2>
+    </div>
+    <div class="kids-pricing-card">
+      <div class="kids-pricing-left">
+        <span class="kids-big-emoji">👶</span>
+        <h3>Детска стоматология</h3>
+        <p>Специален подход и специални цени за нашите малки пациенти. Защото здравите детски зъби са инвестиция в бъдещето!</p>
+        <br>
+        <a href="contact.html" style="display:inline-block; background:var(--yellow); color:var(--text); padding:12px 26px; border-radius:50px; font-family:'Baloo 2',cursive; font-weight:700; text-decoration:none; margin-top:10px; box-shadow:var(--shadow-yellow);">Запиши дете →</a>
+      </div>
+      <div>
+        <table class="kids-table">
+          <thead><tr><th>Процедура</th><th>Цена (лв.)</th></tr></thead>
+          <tbody>
+            <tr><td>Първи преглед (до 6 г.)<span class="free-badge">БЕЗПЛАТЕН</span></td><td>0 лв.</td></tr>
+            <tr><td>Редовен преглед (до 14 г.)</td><td>40 лв.</td></tr>
+            <tr><td>Почистване млечни зъби</td><td>60 лв.</td></tr>
+            <tr><td>Флуорна профилактика</td><td>35 лв.</td></tr>
+            <tr><td>Фисурно запечатване (1 зъб)</td><td>45 лв.</td></tr>
+            <tr><td>Пломба на млечен зъб</td><td>от 70 лв.</td></tr>
+            <tr><td>Детска анестезия (крем)</td><td>включена</td></tr>
+            <tr><td>Дентален рентген (детски)</td><td>20 лв.</td></tr>
+            <tr><td>Екстракция млечен зъб</td><td>от 50 лв.</td></tr>
+            <tr><td>Детска ортодонтска консултация</td><td>40 лв.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="payment-section">
+  <div class="payment-inner">
+    <div style="text-align:center;">
+      <div class="section-label">💳 Начини на плащане</div>
+      <h2 class="section-title">Удобно <span>плащане за семейства</span></h2>
+    </div>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <div class="payment-icon">💵</div>
+        <div class="payment-name">В брой</div>
+        <div class="payment-desc">Плащане в брой на рецепция след процедурата.</div>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon">💳</div>
+        <div class="payment-name">ПОС терминал</div>
+        <div class="payment-desc">Всички банкови карти – Visa, Mastercard, бесконтактно.</div>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon">📅</div>
+        <div class="payment-name">Разсрочено плащане</div>
+        <div class="payment-desc">Разпределете плащането на 3–12 месеца без лихви.</div>
+      </div>
+      <div class="payment-card">
+        <div class="payment-icon">🏥</div>
+        <div class="payment-name">Здравна осигуровка</div>
+        <div class="payment-desc">Работим с НЗОК за основни дейности. Питайте на рецепция.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+      <p>Семейна Дентална Клиника Зъбчо – вашият партньор за здрави и красиви усмивки от 2009 година.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="services.html">Имплантология</a></li>
+        <li><a href="services.html">Ортодонтия</a></li>
+        <li><a href="services.html">Избелване</a></li>
+        <li><a href="services.html">Протезиране</a></li>
+        <li><a href="services.html">Детска стоматология</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a href="tel:+35929876543">📞 029 876 543</a></li>
+        <li><a href="mailto:info@zabcho.bg">✉️ info@zabcho.bg</a></li>
+        <li><a href="#">📍 бул. Витоша 42, София</a></li>
+        <li><a href="#">🕒 Пон–Пет: 9:00–19:00</a></li>
+        <li><a href="#">🕒 Съб: 9:00–14:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Семейна Дентална Клиника Зъбчо. Всички права запазени.</span>
+    <span>Направено с ❤️ за вашата усмивка</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.package-card, .discount-card, .payment-card, .price-table-group').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; el.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(el);
+  });
+</script>
+</body>
+</html>

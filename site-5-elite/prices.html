@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ценоразпис – Елит Дентал Студио</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #1a1a1a; --dark: #2d2d2d; --rose: #B76E79;
+    --rose-light: #E8B4B8; --gold-line: rgba(183,110,121,0.35);
+    --text: #e8e0dc; --text-muted: #a89fa0;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px; background: rgba(26,26,26,0.92);
+    backdrop-filter: blur(14px); border-bottom: 1px solid var(--gold-line);
+  }
+  .nav-logo { font-family: 'Bodoni Moda', serif; font-size: 1.25rem; letter-spacing: 0.12em; color: var(--rose-light); text-decoration: none; }
+  .nav-logo span { color: var(--rose); }
+  .nav-links { display: flex; gap: 38px; list-style: none; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--rose-light); }
+  .nav-cta { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 10px 26px; border: 1px solid var(--rose); color: var(--rose-light); text-decoration: none; transition: all 0.35s; }
+  .nav-cta:hover { background: var(--rose); color: var(--black); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--rose-light); }
+
+  /* PAGE HERO */
+  .page-hero {
+    height: 52vh; min-height: 400px; position: relative;
+    display: flex; align-items: flex-end; padding: 0 60px 70px; overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1574088360898-3efba88e7360?w=1800&q=80') center/cover no-repeat;
+  }
+  .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,1) 0%, rgba(26,26,26,0.7) 50%, rgba(26,26,26,0.4) 100%); }
+  .page-hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease both; }
+  .page-eyebrow { font-size: 0.68rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+  .page-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--rose); }
+  .page-hero h1 { font-family: 'Bodoni Moda', serif; font-size: clamp(2.5rem, 5.5vw, 4.2rem); font-weight: 600; line-height: 1.1; }
+  .page-hero h1 em { font-style: italic; color: var(--rose-light); }
+  .page-hero p { font-size: 0.9rem; color: var(--text-muted); margin-top: 16px; max-width: 540px; line-height: 1.8; }
+
+  /* PRICE DISCLAIMER */
+  .price-notice {
+    background: rgba(183,110,121,0.08); border: 1px solid var(--gold-line);
+    margin: 0 60px; padding: 22px 32px;
+    display: flex; align-items: center; gap: 18px;
+    font-size: 0.82rem; color: var(--text-muted); line-height: 1.7;
+  }
+  .price-notice::before { content: '◈'; color: var(--rose); font-size: 1.2rem; flex-shrink: 0; }
+
+  /* PRICE TABLES */
+  .prices-section { padding: 80px 60px; }
+  .section-eyebrow { font-size: 0.68rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--rose); margin-bottom: 18px; display: flex; align-items: center; gap: 16px; }
+  .section-eyebrow::after { content: ''; display: block; width: 40px; height: 1px; background: var(--rose); }
+  h2.section-title { font-family: 'Bodoni Moda', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; line-height: 1.15; margin-bottom: 40px; }
+  h2.section-title em { font-style: italic; color: var(--rose-light); }
+
+  .price-category { margin-bottom: 70px; }
+  .price-table { width: 100%; border-collapse: collapse; }
+  .price-table thead tr { border-bottom: 1px solid var(--rose); }
+  .price-table thead th { padding: 14px 20px; text-align: left; font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--rose); font-weight: 500; }
+  .price-table thead th:last-child { text-align: right; }
+  .price-table tbody tr { border-bottom: 1px solid rgba(183,110,121,0.12); transition: background 0.25s; }
+  .price-table tbody tr:hover { background: rgba(183,110,121,0.05); }
+  .price-table td { padding: 18px 20px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+  .price-table td:first-child { color: var(--text); font-weight: 400; }
+  .price-table td:last-child { text-align: right; white-space: nowrap; }
+  .price-val { font-family: 'Bodoni Moda', serif; font-size: 1.05rem; color: var(--rose-light); }
+  .price-from { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-right: 4px; }
+  .price-badge { display: inline-block; background: rgba(183,110,121,0.15); color: var(--rose); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 10px; margin-left: 10px; }
+
+  /* VIP PACKAGES */
+  .packages-section { background: var(--dark); padding: 100px 60px; }
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-line); margin-top: 60px; }
+  .package-card {
+    background: var(--dark); padding: 52px 40px;
+    position: relative; transition: background 0.35s;
+    display: flex; flex-direction: column;
+  }
+  .package-card:hover { background: rgba(183,110,121,0.07); }
+  .package-card.featured { background: rgba(183,110,121,0.1); }
+  .package-card.featured::before {
+    content: 'ПОПУЛЯРЕН'; position: absolute; top: 0; right: 0;
+    background: var(--rose); color: var(--black); font-size: 0.6rem;
+    letter-spacing: 0.25em; padding: 6px 14px;
+  }
+  .package-tier { font-size: 0.65rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; }
+  .package-name { font-family: 'Bodoni Moda', serif; font-size: 1.6rem; font-weight: 600; color: var(--rose-light); margin-bottom: 8px; }
+  .package-price { font-family: 'Bodoni Moda', serif; font-size: 2.8rem; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 6px; }
+  .package-price span { font-size: 1rem; font-weight: 300; color: var(--text-muted); }
+  .package-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.75; margin: 20px 0 30px; }
+  .package-divider { width: 40px; height: 1px; background: var(--gold-line); margin-bottom: 28px; }
+  .package-includes { list-style: none; display: flex; flex-direction: column; gap: 13px; flex: 1; }
+  .package-includes li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
+  .package-includes li::before { content: '◆'; color: var(--rose); font-size: 0.5rem; margin-top: 5px; flex-shrink: 0; }
+  .package-cta { display: inline-block; margin-top: 36px; padding: 13px 32px; border: 1px solid var(--rose); color: var(--rose-light); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; transition: all 0.35s; text-align: center; }
+  .package-cta:hover { background: var(--rose); color: var(--black); }
+  .package-card.featured .package-cta { background: var(--rose); color: var(--black); }
+  .package-card.featured .package-cta:hover { background: var(--rose-light); }
+
+  /* FINANCING */
+  .financing-section { background: var(--black); padding: 100px 60px; }
+  .financing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
+  .financing-text p { font-size: 0.9rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 18px; }
+  .financing-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gold-line); }
+  .fin-option { background: var(--black); padding: 36px 30px; transition: background 0.3s; }
+  .fin-option:hover { background: rgba(183,110,121,0.05); }
+  .fin-option h4 { font-family: 'Bodoni Moda', serif; font-size: 1.05rem; color: var(--rose-light); margin-bottom: 10px; }
+  .fin-option p { font-size: 0.82rem; line-height: 1.78; color: var(--text-muted); }
+
+  /* CTA */
+  .prices-cta { background: var(--dark); padding: 90px 60px; text-align: center; }
+  .prices-cta h2 { font-family: 'Bodoni Moda', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 600; margin-bottom: 20px; }
+  .prices-cta h2 em { font-style: italic; color: var(--rose-light); }
+  .prices-cta p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 42px; max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.85; }
+  .btn-primary { display: inline-block; padding: 15px 42px; background: var(--rose); color: var(--black); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600; transition: all 0.35s; }
+  .btn-primary:hover { background: var(--rose-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: #111; border-top: 1px solid var(--gold-line); padding: 70px 60px 40px; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
+  .footer-brand .nav-logo { display: block; margin-bottom: 20px; font-size: 1.1rem; }
+  .footer-brand p { font-size: 0.83rem; line-height: 1.85; color: var(--text-muted); max-width: 260px; }
+  .footer-col h5 { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); margin-bottom: 22px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+  .footer-col ul a:hover { color: var(--rose-light); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid var(--gold-line); font-size: 0.75rem; color: var(--text-muted); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .packages-grid { grid-template-columns: 1fr; }
+    .financing-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .page-hero { padding: 0 24px 52px; }
+    .prices-section { padding: 60px 24px; }
+    .packages-section, .financing-section, .prices-cta { padding: 70px 24px; }
+    .price-notice { margin: 0 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+  @media (max-width: 540px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .financing-options { grid-template-columns: 1fr; }
+    .price-table td, .price-table th { padding: 12px 8px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Елит <span>Дентал</span> Студио</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Начало</a></li>
+    <li><a href="about.html">За нас</a></li>
+    <li><a href="services.html">Услуги</a></li>
+    <li><a href="prices.html" class="active">Ценоразпис</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Запази час</a>
+  <button class="nav-toggle" aria-label="Меню"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Прозрачни цени</p>
+    <h1>Инвестицията в<br><em>Вашата усмивка</em></h1>
+    <p>Ценоразписът ни е изграден на принципа на пълната прозрачност. Никакви скрити такси, никакви изненади.</p>
+  </div>
+</div>
+
+<div class="price-notice reveal">
+  Цените са ориентировъчни и могат да варират след индивидуален преглед. Включват ДДС. Безплатна първоначална консултация при записване онлайн.
+</div>
+
+<!-- PRICES -->
+<section class="prices-section">
+
+  <div class="price-category reveal">
+    <p class="section-eyebrow">Дентална диагностика</p>
+    <h2 class="section-title">Диагностика и <em>профилактика</em></h2>
+    <table class="price-table">
+      <thead><tr><th>Услуга</th><th>Описание</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td>Първоначален преглед</td><td>Пълна диагностика, снимки, план за лечение</td><td><span class="price-from">от</span><span class="price-val">0 лв</span> <span class="price-badge">Безплатен</span></td></tr>
+        <tr><td>Профилактичен преглед</td><td>Периодичен преглед с препоръки</td><td><span class="price-from">от</span><span class="price-val">60 лв</span></td></tr>
+        <tr><td>Цифрова рентгенова снимка</td><td>Дигитален рентген с минимална доза</td><td><span class="price-from">от</span><span class="price-val">35 лв</span></td></tr>
+        <tr><td>Конусна компютърна томография (CBCT)</td><td>3D образна диагностика</td><td><span class="price-from">от</span><span class="price-val">180 лв</span></td></tr>
+        <tr><td>Дигитален дизайн на усмивката</td><td>Smile Design с 3D симулация</td><td><span class="price-from">от</span><span class="price-val">240 лв</span></td></tr>
+        <tr><td>Почистване (Air Flow)</td><td>Ултразвуково почистване и полиране</td><td><span class="price-from">от</span><span class="price-val">120 лв</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="price-category reveal">
+    <p class="section-eyebrow">Имплантология</p>
+    <h2 class="section-title">Импланти и <em>хирургия</em></h2>
+    <table class="price-table">
+      <thead><tr><th>Услуга</th><th>Описание</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td>Зъбен имплант (Straumann)</td><td>Швейцарски имплант + операция</td><td><span class="price-from">от</span><span class="price-val">1 200 лв</span></td></tr>
+        <tr><td>Имплант + керамична корона</td><td>Пълен комплект с корона e.max</td><td><span class="price-from">от</span><span class="price-val">1 850 лв</span></td></tr>
+        <tr><td>Незабавно натоварване (1 ден)</td><td>Временна корона в деня на имплантиране</td><td><span class="price-from">от</span><span class="price-val">2 200 лв</span></td></tr>
+        <tr><td>All-on-4</td><td>4 импланта + мост – пълна дъга</td><td><span class="price-from">от</span><span class="price-val">9 500 лв</span></td></tr>
+        <tr><td>All-on-6</td><td>6 импланта + мост – пълна дъга</td><td><span class="price-from">от</span><span class="price-val">12 800 лв</span></td></tr>
+        <tr><td>Костна аугментация</td><td>Добавяне на костна тъкан при нужда</td><td><span class="price-from">от</span><span class="price-val">750 лв</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="price-category reveal">
+    <p class="section-eyebrow">Козметична стоматология</p>
+    <h2 class="section-title">Козметика и <em>естетика</em></h2>
+    <table class="price-table">
+      <thead><tr><th>Услуга</th><th>Описание</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td>Клинично избелване Zoom!</td><td>In-office избелване, 90 мин, до 14 нюанса</td><td><span class="price-from">от</span><span class="price-val">380 лв</span></td></tr>
+        <tr><td>Home избелване (шини + гел)</td><td>Персонализирани шини и гел за 2 седмици</td><td><span class="price-from">от</span><span class="price-val">220 лв</span></td></tr>
+        <tr><td>Порцеланова фасета (e.max)</td><td>Ултратънка керамична фасета на зъб</td><td><span class="price-from">от</span><span class="price-val">680 лв</span></td></tr>
+        <tr><td>Циркониева корона</td><td>Цялокерамична корона без метален скелет</td><td><span class="price-from">от</span><span class="price-val">690 лв</span></td></tr>
+        <tr><td>Мост (3 члена)</td><td>Керамичен мост при липсващ зъб</td><td><span class="price-from">от</span><span class="price-val">1 650 лв</span></td></tr>
+        <tr><td>Пакет Hollywood Smile (10 фасети)</td><td>Пълна трансформация на видимите зъби</td><td><span class="price-from">от</span><span class="price-val">5 900 лв</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="price-category reveal">
+    <p class="section-eyebrow">Ортодонтия</p>
+    <h2 class="section-title">Ортодонтски <em>лечения</em></h2>
+    <table class="price-table">
+      <thead><tr><th>Услуга</th><th>Описание</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td>Invisalign Lite</td><td>До 14 стъпки, за леки корекции</td><td><span class="price-from">от</span><span class="price-val">2 400 лв</span></td></tr>
+        <tr><td>Invisalign Comprehensive</td><td>Пълен курс, неограничени стъпки</td><td><span class="price-from">от</span><span class="price-val">4 200 лв</span></td></tr>
+        <tr><td>Сапфирени брекети</td><td>Естетични прозрачни брекети (двете дъги)</td><td><span class="price-from">от</span><span class="price-val">2 800 лв</span></td></tr>
+        <tr><td>Lingual брекети</td><td>Вътрешни невидими брекети (двете дъги)</td><td><span class="price-from">от</span><span class="price-val">5 500 лв</span></td></tr>
+        <tr><td>Ретейнер (1 бр.)</td><td>Поддържащ апарат след лечение</td><td><span class="price-from">от</span><span class="price-val">220 лв</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- VIP PACKAGES -->
+<section class="packages-section">
+  <div class="reveal">
+    <p class="section-eyebrow">VIP пакети</p>
+    <h2 class="section-title">Готови пакети за<br><em>пълна трансформация</em></h2>
+  </div>
+  <div class="packages-grid">
+    <div class="package-card reveal">
+      <p class="package-tier">Пакет Silver</p>
+      <p class="package-name">Свежест</p>
+      <p class="package-price">890 <span>лв</span></p>
+      <p class="package-desc">Идеален стартов пакет за поддържане на здрава и красива усмивка.</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Пълен профилактичен преглед</li>
+        <li>Ултразвуково почистване (Air Flow)</li>
+        <li>Клинично избелване Zoom!</li>
+        <li>Домашна поддръжка (гел + шини)</li>
+        <li>Последващ преглед след 1 месец</li>
+      </ul>
+      <a href="contact.html" class="package-cta">Запазете пакета</a>
+    </div>
+    <div class="package-card featured reveal">
+      <p class="package-tier">Пакет Gold</p>
+      <p class="package-name">Елегантност</p>
+      <p class="package-price">3 400 <span>лв</span></p>
+      <p class="package-desc">Комплексна трансформация за взискателни клиенти, търсещи видима промяна.</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Всичко от Silver пакета</li>
+        <li>Дигитален дизайн на усмивката</li>
+        <li>4 порцеланови фасети (горна дъга)</li>
+        <li>Реминерализираща терапия</li>
+        <li>Персонален консиерж асистент</li>
+        <li>12 месеца безплатни прегледи</li>
+      </ul>
+      <a href="contact.html" class="package-cta">Запазете пакета</a>
+    </div>
+    <div class="package-card reveal">
+      <p class="package-tier">Пакет Platinum</p>
+      <p class="package-name">Hollywood Smile</p>
+      <p class="package-price">7 900 <span>лв</span></p>
+      <p class="package-desc">Пълна Hollywood Smile трансформация – резултат като от червения килим.</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Всичко от Gold пакета</li>
+        <li>10 ултратънки фасети e.max Press</li>
+        <li>Профилна ортодонтска диагностика</li>
+        <li>Гингивопластика при нужда</li>
+        <li>Луксозен VIP кабинет за всяка визита</li>
+        <li>24 месеца гаранция на фасетите</li>
+        <li>Lifetime профилактично членство</li>
+      </ul>
+      <a href="contact.html" class="package-cta">Запазете пакета</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCING -->
+<section class="financing-section">
+  <div class="financing-grid">
+    <div class="financing-text reveal">
+      <p class="section-eyebrow">Финансиране</p>
+      <h2 class="section-title">Гъвкави опции за<br><em>плащане</em></h2>
+      <p>Разбираме, че луксозните стоматологични услуги са значителна инвестиция. Затова предлагаме разнообразни начини за финансиране, за да направим Вашата мечтана усмивка достъпна.</p>
+      <p>Нашите финансови консултанти ще Ви помогнат да изберете оптималния план за Вашата ситуация – без стрес, без скрити условия.</p>
+    </div>
+    <div class="financing-options reveal">
+      <div class="fin-option">
+        <h4>Разсрочено плащане</h4>
+        <p>До 24 вноски без лихва за процедури над 800 лв чрез наши партньорски банки.</p>
+      </div>
+      <div class="fin-option">
+        <h4>Потребителски кредит</h4>
+        <p>Кандидатстване в клиниката в рамките на 10 минути. Одобрение до 30 минути.</p>
+      </div>
+      <div class="fin-option">
+        <h4>Застрахователни планове</h4>
+        <p>Работим с всички основни здравни застрахователи. Покрива до 50% от разходите.</p>
+      </div>
+      <div class="fin-option">
+        <h4>Предплатено членство</h4>
+        <p>VIP годишно членство с 15% отстъпка на всички услуги и приоритетни часове.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="prices-cta reveal">
+  <h2>Получете <em>персонална оферта</em></h2>
+  <p>Запишете се за безплатна консултация и получете точна ценова оферта, изготвена специално за Вас.</p>
+  <a href="contact.html" class="btn-primary">Запази безплатна консултация</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">Елит <span>Дентал</span> Студио</a>
+      <p>Луксозна козметична стоматология в сърцето на София. Вашата усмивка е нашето изкуство.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Навигация</h5>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Услуги</h5>
+      <ul>
+        <li><a href="services.html">Имплантология</a></li>
+        <li><a href="services.html">Ортодонтия</a></li>
+        <li><a href="services.html">Избелване</a></li>
+        <li><a href="services.html">Протезиране</a></li>
+        <li><a href="services.html">Детска стоматология</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Контакт</h5>
+      <ul>
+        <li><a href="#">бул. Витоша 45, София</a></li>
+        <li><a href="tel:+35929876543">+359 2 987 6543</a></li>
+        <li><a href="mailto:info@elitdental.bg">info@elitdental.bg</a></li>
+        <li><a href="#">Пон–Пет: 09:00–19:00</a></li>
+        <li><a href="#">Събота: 10:00–15:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Елит Дентал Студио. Всички права запазени.</span>
+    <span style="color: var(--rose); font-size: 0.7rem; letter-spacing: 0.2em;">SOFIA · EXCELLENCE · BEAUTY</span>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

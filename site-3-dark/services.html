@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НеоДент Технолоджи – Услуги</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --bg2: #1a1a2e;
+    --cyan: #00f5ff; --cyan-dim: rgba(0,245,255,0.12);
+    --cyan-glow: 0 0 10px #00f5ff, 0 0 30px #00f5ff55;
+    --text: #e0e0e0; --text-muted: #888;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; overflow-x: hidden; }
+  body::after {
+    content: ''; position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,245,255,0.2); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+  .nav-logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--cyan); text-decoration: none; text-shadow: var(--cyan-glow); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--text); text-decoration: none; font-family: 'Exo 2', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--cyan); box-shadow: var(--cyan-glow); transition: width 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--cyan); text-shadow: var(--cyan-glow); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--cyan); margin: 5px 0; box-shadow: var(--cyan-glow); }
+
+  /* PAGE HERO */
+  .page-hero { padding-top: 70px; min-height: 320px; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .page-hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1600&q=80') center/cover; filter: brightness(0.12) saturate(1.4); z-index: 0; }
+  .page-hero-grid { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px); background-size: 60px 60px; animation: gridMove 20s linear infinite; }
+  @keyframes gridMove { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+  .page-hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; width: 100%; }
+  .breadcrumb { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 3px; margin-bottom: 1rem; text-transform: uppercase; }
+  .breadcrumb span { color: var(--cyan); }
+  .page-hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem,5vw,3.5rem); font-weight: 900; color: #fff; text-shadow: 0 0 40px rgba(0,245,255,0.4); }
+  .page-hero h1 span { color: var(--cyan); text-shadow: var(--cyan-glow); }
+
+  /* SHARED */
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--cyan); letter-spacing: 5px; text-transform: uppercase; display: block; margin-bottom: 1rem; text-shadow: var(--cyan-glow); }
+  .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.5rem,3.5vw,2.5rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 1.5rem; }
+  .text-cyan { color: var(--cyan); text-shadow: var(--cyan-glow); }
+
+  /* SERVICE CARDS FULL */
+  .services-full { padding: 5rem 2rem; }
+  .service-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid rgba(0,245,255,0.12); margin-bottom: 2rem;
+    overflow: hidden; position: relative; transition: border-color 0.4s, box-shadow 0.4s;
+  }
+  .service-block:hover { border-color: var(--cyan); box-shadow: 0 0 40px rgba(0,245,255,0.1); }
+  .service-block:nth-child(even) .svc-img { order: 2; }
+  .service-block:nth-child(even) .svc-text { order: 1; }
+  .svc-img { position: relative; overflow: hidden; min-height: 340px; }
+  .svc-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7) saturate(1.1); transition: transform 0.6s, filter 0.4s; }
+  .service-block:hover .svc-img img { transform: scale(1.04); filter: brightness(0.85) saturate(1.3); }
+  .svc-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,245,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .svc-badge {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--cyan);
+    background: rgba(10,10,10,0.85); border: 1px solid var(--cyan);
+    padding: 5px 12px; letter-spacing: 3px; text-transform: uppercase;
+    box-shadow: var(--cyan-glow);
+  }
+  .svc-text { background: var(--bg2); padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+  .svc-num { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: rgba(0,245,255,0.4); letter-spacing: 4px; margin-bottom: 0.8rem; }
+  .svc-text h2 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+  .svc-text p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.8; margin-bottom: 1.5rem; }
+  .svc-features { list-style: none; margin-bottom: 2rem; }
+  .svc-features li { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.88rem; }
+  .svc-features li::before { content: '▸'; color: var(--cyan); text-shadow: var(--cyan-glow); font-size: 0.9rem; flex-shrink: 0; }
+  .btn-sm {
+    display: inline-block; padding: 10px 28px; border: 1px solid var(--cyan);
+    color: var(--cyan); font-family: 'Orbitron', sans-serif; font-size: 0.75rem;
+    font-weight: 700; letter-spacing: 2px; text-decoration: none; text-transform: uppercase;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s; box-shadow: var(--cyan-glow);
+    align-self: flex-start;
+  }
+  .btn-sm:hover { background: var(--cyan); color: #0a0a0a; box-shadow: 0 0 30px #00f5ff; }
+
+  /* PROCESS */
+  .process-section { padding: 5rem 2rem; background: var(--bg2); }
+  .process-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem; position: relative; }
+  .process-grid::before { content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+  .process-step { text-align: center; padding: 0 0.5rem; }
+  .process-dot {
+    width: 80px; height: 80px; border: 2px solid var(--cyan);
+    border-radius: 0; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.2rem; font-size: 1.8rem; position: relative; z-index: 1;
+    background: var(--bg); box-shadow: var(--cyan-glow);
+    transition: box-shadow 0.3s; cursor: default;
+  }
+  .process-dot:hover { box-shadow: 0 0 30px #00f5ff, 0 0 60px #00f5ff55; }
+  .process-step h4 { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .process-step p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+  /* MINI CARDS — additional treatments */
+  .extra-section { padding: 5rem 2rem; }
+  .extra-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; }
+  .extra-card {
+    background: var(--bg2); border: 1px solid rgba(0,245,255,0.1);
+    padding: 1.8rem 1.5rem; text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .extra-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; box-shadow: var(--cyan-glow); }
+  .extra-card:hover { border-color: rgba(0,245,255,0.35); box-shadow: 0 0 20px rgba(0,245,255,0.08); transform: translateY(-4px); }
+  .extra-card:hover::before { transform: scaleX(1); }
+  .extra-card .ei { font-size: 1.8rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 6px #00f5ff88); }
+  .extra-card h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: #fff; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+  .extra-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* FOOTER */
+  footer { background: #050508; border-top: 1px solid rgba(0,245,255,0.15); padding: 3rem 2rem 1.5rem; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+  .footer-brand p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.8; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.2rem; text-shadow: var(--cyan-glow); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+  .footer-col ul li a:hover { color: var(--cyan); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) { .service-block { grid-template-columns: 1fr; } .service-block:nth-child(even) .svc-img, .service-block:nth-child(even) .svc-text { order: unset; } .svc-img { min-height: 240px; } .process-grid { grid-template-columns: repeat(3,1fr); } .extra-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 640px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(10,10,10,0.98); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,245,255,0.2); }
+    .nav-links.open { display: flex; }
+    .nav-toggle { display: block; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .extra-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">НЕО<span style="color:#fff">ДЕНТ</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Начало</a></li>
+    <li><a href="about.html">За нас</a></li>
+    <li><a href="services.html" class="active">Услуги</a></li>
+    <li><a href="prices.html">Ценоразпис</a></li>
+    <li><a href="contact.html">Контакти</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">НеоДент / <span>Услуги</span></div>
+    <h1>Дентални услуги<br><span>от ново поколение</span></h1>
+  </div>
+</div>
+
+<!-- SERVICE BLOCKS -->
+<section class="services-full">
+  <div class="container">
+
+    <!-- 1. IMPLANTS -->
+    <div class="service-block">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=80" alt="Имплантология">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-badge">Топ услуга</div>
+      </div>
+      <div class="svc-text">
+        <div class="svc-num">// 01</div>
+        <h2>Имплантология</h2>
+        <p>Денталните импланти са трайното решение при загуба на зъби. Ние използваме 3D планиране с CBCT и роботизирана хирургична навигация за прецизност до 0.1 мм. Titanium импланти от клас I медицинско качество с гаранция за цял живот.</p>
+        <ul class="svc-features">
+          <li>3D компютърно планиране и хирургичен шаблон</li>
+          <li>Роботизирана навигация при поставяне</li>
+          <li>Immediate loading — зъб за 24 часа</li>
+          <li>All-on-4 и All-on-6 протоколи</li>
+          <li>Собствена костна аугментация</li>
+        </ul>
+        <a href="contact.html" class="btn-sm">Запази консултация</a>
+      </div>
+    </div>
+
+    <!-- 2. ORTHODONTICS -->
+    <div class="service-block">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80" alt="Ортодонтия">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-badge">Invisalign Partner</div>
+      </div>
+      <div class="svc-text">
+        <div class="svc-num">// 02</div>
+        <h2>Ортодонтия</h2>
+        <p>Модерното ортодонтско лечение в НеоДент използва дигитален зъботехнически отпечатък, AI симулация на резултата и невидими алайнери Invisalign. Проследявайте напредъка си в реално време чрез нашето мобилно приложение.</p>
+        <ul class="svc-features">
+          <li>Невидими алайнери Invisalign Full & Lite</li>
+          <li>Самолигиращи метални и керамични брекети</li>
+          <li>Дигитална симулация на крайния резултат</li>
+          <li>Ортодонтия за деца и възрастни</li>
+          <li>Ретенционни шини след лечение</li>
+        </ul>
+        <a href="contact.html" class="btn-sm">Запази консултация</a>
+      </div>
+    </div>
+
+    <!-- 3. WHITENING -->
+    <div class="service-block">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=80" alt="Избелване">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-badge">До 12 нюанса</div>
+      </div>
+      <div class="svc-text">
+        <div class="svc-num">// 03</div>
+        <h2>Избелване на зъби</h2>
+        <p>Системата ни за лазерно и LED фотодинамично избелване постига до 12 нюанса по-бяло в рамките на един час. Безопасна формула, щадяща емайла, с дълготраен ефект до 2 години.</p>
+        <ul class="svc-features">
+          <li>Клинично лазерно избелване Beyond Polus</li>
+          <li>LED фотодинамична система Zoom</li>
+          <li>Домашни шини по индивидуален отпечатък</li>
+          <li>Комбинирана клинично-домашна програма</li>
+          <li>Резултат до 12 нюанса по-бяло за 1 час</li>
+        </ul>
+        <a href="contact.html" class="btn-sm">Запази консултация</a>
+      </div>
+    </div>
+
+    <!-- 4. PROSTHETICS -->
+    <div class="service-block">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80" alt="Протезиране">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-badge">CAD/CAM</div>
+      </div>
+      <div class="svc-text">
+        <div class="svc-num">// 04</div>
+        <h2>Протезиране</h2>
+        <p>Нашата дигитална лаборатория изработва всякакъв вид зъбни протези с CAD/CAM технология. Циркониеви корони и мостове с естетика и издръжливост, неразличими от естествените зъби — готови за 24 часа.</p>
+        <ul class="svc-features">
+          <li>Циркониеви коронки и мостове (Zirconia)</li>
+          <li>E-max безметални конструкции</li>
+          <li>CAD/CAM фрезоване в собствена лаборатория</li>
+          <li>Порцеланови фасети и ламинати</li>
+          <li>Частични и пълни подвижни протези</li>
+        </ul>
+        <a href="contact.html" class="btn-sm">Запази консултация</a>
+      </div>
+    </div>
+
+    <!-- 5. PEDIATRIC -->
+    <div class="service-block">
+      <div class="svc-img">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="Детска стоматология">
+        <div class="svc-img-overlay"></div>
+        <div class="svc-badge">VR Терапия</div>
+      </div>
+      <div class="svc-text">
+        <div class="svc-num">// 05</div>
+        <h2>Детска стоматология</h2>
+        <p>Специализираното ни отделение за деца е проектирано да елиминира страха от зъболекаря. Виртуалната реалност, разсейващи таблети и специализираната детска анестезия правят всяко посещение незабравимо приключение.</p>
+        <ul class="svc-features">
+          <li>VR очила за разсейване по време на лечение</li>
+          <li>Детска адаптирана анестезия без болка</li>
+          <li>Профилактика и запечатване на ямички</li>
+          <li>Ортодонтско проследяване от 6 години</li>
+          <li>Програма за превенция на кариес</li>
+        </ul>
+        <a href="contact.html" class="btn-sm">Запази консултация</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span class="section-tag">// Как работим</span>
+      <h2 class="section-title">Нашият <span class="text-cyan">технологичен</span> процес</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-dot">📋</div>
+        <h4>Консултация</h4>
+        <p>Безплатна оценка и планиране на лечението</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">🔬</div>
+        <h4>Диагностика</h4>
+        <p>3D скениране и AI анализ</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">💻</div>
+        <h4>Планиране</h4>
+        <p>Дигитален план и симулация</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">⚡</div>
+        <h4>Лечение</h4>
+        <p>Прецизно провеждане с контрол</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">✅</div>
+        <h4>Проследяване</h4>
+        <p>Дигитален мониторинг на резултата</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRA SERVICES -->
+<section class="extra-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <span class="section-tag">// Допълнителни процедури</span>
+      <h2 class="section-title">И още <span class="text-cyan">услуги</span></h2>
+    </div>
+    <div class="extra-grid">
+      <div class="extra-card">
+        <div class="ei">🦠</div>
+        <h4>Пародонтология</h4>
+        <p>Лечение на венечни заболявания с лазер и ултразвук</p>
+      </div>
+      <div class="extra-card">
+        <div class="ei">😮</div>
+        <h4>Перорална хирургия</h4>
+        <p>Екстракции, синуслифт и костна аугментация</p>
+      </div>
+      <div class="extra-card">
+        <div class="ei">🎭</div>
+        <h4>Естетична денталика</h4>
+        <p>Холивудска усмивка: фасети, ламинати, smile design</p>
+      </div>
+      <div class="extra-card">
+        <div class="ei">🛡️</div>
+        <h4>Профилактика</h4>
+        <p>Почистване, Air Flow, флуоридна защита</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="font-size:1.4rem;">НЕО<span style="color:#fff">ДЕНТ</span></div>
+      <p>НеоДент Технолоджи е авангардна дентална клиника, съчетаваща най-съвременните технологии с индивидуален подход към всеки пациент.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="#">Имплантология</a></li>
+        <li><a href="#">Ортодонтия</a></li>
+        <li><a href="#">Избелване</a></li>
+        <li><a href="#">Протезиране</a></li>
+        <li><a href="#">Детска денталика</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a href="#">бул. Технологичен 42, София</a></li>
+        <li><a href="tel:+35929876543">+359 2 987 6543</a></li>
+        <li><a href="mailto:info@neodent.bg">info@neodent.bg</a></li>
+        <li><a href="#">Пн–Пт: 08:00–20:00</a></li>
+        <li><a href="#">Сб: 09:00–15:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 НеоДент Технолоджи ЕООД. Всички права запазени.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дентални Шаблони — Комплект Б (Смели/Модерни)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #0b0b0f 0%, #1a1a2e 50%, #0b0b0f 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ff6b6b, #48d1cc, #00f5ff, #ffd93d, #b76e79);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+        header p {
+            font-size: 1.05rem;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .badge {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+        }
+        .gallery {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 36px;
+        }
+        .card {
+            background: #131318;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .card:nth-child(1) { --accent: #FF6B6B; }
+        .card:nth-child(2) { --accent: #48D1CC; }
+        .card:nth-child(3) { --accent: #00f5ff; }
+        .card:nth-child(4) { --accent: #FFD93D; }
+        .card:nth-child(5) { --accent: #B76E79; }
+        .card:hover { border-color: var(--accent); }
+        .card-preview {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            background: #0a0a0e;
+            overflow: hidden;
+        }
+        .card-preview iframe {
+            width: 200%;
+            height: 200%;
+            border: none;
+            transform: scale(0.5);
+            transform-origin: top left;
+            pointer-events: none;
+        }
+        .card-preview .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 60%, #131318);
+            z-index: 2;
+        }
+        .card-number {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-body {
+            padding: 24px 28px 28px;
+        }
+        .card-body h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .card-body .subtitle {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 12px;
+        }
+        .card-body p {
+            font-size: 0.9rem;
+            color: #999;
+            line-height: 1.55;
+            margin-bottom: 20px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tags span {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #bbb;
+        }
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .card-link:hover {
+            opacity: 0.85;
+            transform: translateX(3px);
+        }
+        .card-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #555;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.6rem; }
+            .gallery { grid-template-columns: 1fr; padding: 30px 16px 60px; }
+            .card-preview { height: 200px; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card { animation: fadeUp 0.6s ease both; }
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.25s; }
+        .card:nth-child(4) { animation-delay: 0.35s; }
+        .card:nth-child(5) { animation-delay: 0.45s; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Дентални Шаблони — Комплект Б</h1>
+        <p>5 уникални уебсайта за дентални клиники — смели и модерни дизайни. Всеки сайт е с 5 страници, напълно на български.</p>
+        <span class="badge">Set B · 5 sites · 25 pages · Bold & Modern</span>
+    </header>
+
+    <main class="gallery">
+        <!-- Site 1 -->
+        <div class="card">
+            <div class="card-preview">
+                <span class="card-number">1</span>
+                <iframe src="site-1-smile/index.html" loading="lazy" sandbox="allow-same-origin"></iframe>
+                <div class="overlay"></div>
+            </div>
+            <div class="card-body">
+                <h2>Усмивка Дентал</h2>
+                <div class="subtitle">site-1-smile/</div>
+                <p>Игриво и топло — коралово розово с бяло, кръгли форми и усмихнат дизайн за достъпна дентална клиника.</p>
+                <div class="tags">
+                    <span>Coral Pink</span>
+                    <span>Comfortaa</span>
+                    <span>Nunito</span>
+                    <span>Playful</span>
+                </div>
+                <a href="site-1-smile/index.html" class="card-link">
+                    Отвори сайта
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 2 -->
+        <div class="card">
+            <div class="card-preview">
+                <span class="card-number">2</span>
+                <iframe src="site-2-sterile/index.html" loading="lazy" sandbox="allow-same-origin"></iframe>
+                <div class="overlay"></div>
+            </div>
+            <div class="card-body">
+                <h2>Стерил Дент Клиник</h2>
+                <div class="subtitle">site-2-sterile/</div>
+                <p>Ултра-чист и стерилен — чисто бяло с ментово зелено, минималистичен медицински дизайн с прецизна типография.</p>
+                <div class="tags">
+                    <span>White + Mint</span>
+                    <span>Work Sans</span>
+                    <span>DM Sans</span>
+                    <span>Ultra-Clean</span>
+                </div>
+                <a href="site-2-sterile/index.html" class="card-link">
+                    Отвори сайта
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 3 -->
+        <div class="card">
+            <div class="card-preview">
+                <span class="card-number">3</span>
+                <iframe src="site-3-dark/index.html" loading="lazy" sandbox="allow-same-origin"></iframe>
+                <div class="overlay"></div>
+            </div>
+            <div class="card-body">
+                <h2>НеоДент Технолоджи</h2>
+                <div class="subtitle">site-3-dark/</div>
+                <p>Футуристичен тъмен режим — неоново синьо-зелено върху черно, сканлайн ефекти и светещи елементи за хай-тек клиника.</p>
+                <div class="tags">
+                    <span>Dark Mode</span>
+                    <span>Neon Cyan</span>
+                    <span>Orbitron</span>
+                    <span>Exo 2</span>
+                </div>
+                <a href="site-3-dark/index.html" class="card-link">
+                    Отвори сайта
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 4 -->
+        <div class="card">
+            <div class="card-preview">
+                <span class="card-number">4</span>
+                <iframe src="site-4-family/index.html" loading="lazy" sandbox="allow-same-origin"></iframe>
+                <div class="overlay"></div>
+            </div>
+            <div class="card-body">
+                <h2>Клиника Зъбчо</h2>
+                <div class="subtitle">site-4-family/</div>
+                <p>Топло и семейно — слънчево жълто със синьо, весел дизайн за цялото семейство, включително детска секция.</p>
+                <div class="tags">
+                    <span>Yellow + Blue</span>
+                    <span>Baloo 2</span>
+                    <span>Poppins</span>
+                    <span>Family</span>
+                </div>
+                <a href="site-4-family/index.html" class="card-link">
+                    Отвори сайта
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Site 5 -->
+        <div class="card">
+            <div class="card-preview">
+                <span class="card-number">5</span>
+                <iframe src="site-5-elite/index.html" loading="lazy" sandbox="allow-same-origin"></iframe>
+                <div class="overlay"></div>
+            </div>
+            <div class="card-body">
+                <h2>Елит Дентал Студио</h2>
+                <div class="subtitle">site-5-elite/</div>
+                <p>Луксозна козметична дентистика — матово черно с розово злато, елегантна серифна типография и премиум усещане.</p>
+                <div class="tags">
+                    <span>Matte Black</span>
+                    <span>Rose Gold</span>
+                    <span>Bodoni Moda</span>
+                    <span>Raleway</span>
+                </div>
+                <a href="site-5-elite/index.html" class="card-link">
+                    Отвори сайта
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Дентални Шаблони — Комплект Б &copy; 2026 &middot; Всички дизайни са с демонстрационна цел</p>
+    </footer>
+</body>
+</html>

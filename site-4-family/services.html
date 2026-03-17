@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Услуги – Семейна Дентална Клиника Зъбчо</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --yellow: #FFD93D; --yellow-light: #FFF8E1; --yellow-mid: #FFE97A;
+      --blue: #6EC6FF; --blue-light: #E3F2FD; --blue-mid: #B3E0FF; --blue-dark: #2196F3;
+      --white: #ffffff; --text: #2D3748; --text-light: #718096;
+      --radius: 20px; --radius-lg: 32px;
+      --shadow: 0 8px 32px rgba(110,198,255,0.18); --shadow-yellow: 0 8px 32px rgba(255,217,61,0.25);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: var(--yellow-light); color: var(--text); overflow-x: hidden; }
+
+    nav { background: var(--white); box-shadow: 0 4px 20px rgba(110,198,255,0.15); position: sticky; top: 0; z-index: 1000; padding: 0 2rem; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem; color: var(--blue-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 42px; height: 42px; background: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; animation: wiggle 3s ease-in-out infinite; }
+    @keyframes wiggle { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--text); transition: color 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 3px; background: var(--yellow); border-radius: 2px; transition: width 0.3s; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue-dark); }
+    .nav-cta { background: var(--yellow) !important; color: var(--text) !important; padding: 10px 22px !important; border-radius: 50px !important; font-weight: 700 !important; box-shadow: var(--shadow-yellow); transition: transform 0.2s !important; }
+    .nav-cta:hover { transform: translateY(-2px) scale(1.04) !important; }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 26px; height: 3px; background: var(--text); border-radius: 3px; }
+
+    .page-hero { background: linear-gradient(135deg, var(--yellow-light) 0%, var(--blue-light) 100%); padding: 80px 2rem 60px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -50px; right: -50px; width: 250px; height: 250px; background: var(--yellow-mid); border-radius: 50%; opacity: 0.25; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-breadcrumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 16px; }
+    .page-breadcrumb a { color: var(--blue-dark); text-decoration: none; }
+    .page-hero h1 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); color: var(--text); margin-bottom: 16px; animation: slideUp 0.7s both; }
+    .page-hero h1 span { color: var(--blue-dark); }
+    .page-hero p { color: var(--text-light); font-size: 1.08rem; line-height: 1.8; animation: slideUp 0.7s 0.2s both; }
+    @keyframes slideUp { from { transform: translateY(25px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* SERVICE DETAIL CARDS */
+    .services-section { padding: 80px 2rem; background: var(--white); }
+    .services-section:nth-child(even) { background: var(--yellow-light); }
+
+    .service-block { max-width: 1200px; margin: 0 auto 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .service-block:last-child { margin-bottom: 0; }
+    .service-block.reverse { direction: rtl; }
+    .service-block.reverse > * { direction: ltr; }
+
+    .service-image { border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1); position: relative; }
+    .service-image img { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform 0.5s; }
+    .service-image:hover img { transform: scale(1.04); }
+    .service-color-tag { position: absolute; top: 20px; left: 20px; border-radius: 50px; padding: 8px 18px; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.9rem; }
+    .tag-yellow { background: var(--yellow); color: var(--text); }
+    .tag-blue { background: var(--blue); color: var(--white); }
+
+    .service-info { padding: 10px 0; }
+    .service-number { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: var(--yellow-mid); line-height: 1; margin-bottom: 8px; }
+    .service-emoji-big { font-size: 3rem; margin-bottom: 12px; display: block; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .service-info h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.7rem, 2.5vw, 2.2rem); color: var(--text); margin-bottom: 14px; }
+    .service-info h2 span { color: var(--blue-dark); }
+    .service-info p { color: var(--text-light); font-size: 0.97rem; line-height: 1.8; margin-bottom: 16px; }
+    .service-bullets { list-style: none; margin: 20px 0 28px; display: flex; flex-direction: column; gap: 12px; }
+    .service-bullets li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.94rem; }
+    .bullet-icon { min-width: 28px; height: 28px; background: var(--yellow); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    .bullet-icon.blue { background: var(--blue-light); }
+    .service-price-hint { display: inline-block; background: var(--blue-light); border-radius: 12px; padding: 10px 18px; font-size: 0.9rem; color: var(--blue-dark); font-weight: 600; margin-bottom: 20px; }
+    .btn-service { display: inline-block; background: var(--yellow); color: var(--text); padding: 13px 28px; border-radius: 50px; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.95rem; text-decoration: none; box-shadow: var(--shadow-yellow); transition: transform 0.2s, box-shadow 0.2s; }
+    .btn-service:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 30px rgba(255,217,61,0.45); }
+
+    /* KIDS SPECIAL */
+    .kids-special { padding: 80px 2rem; background: linear-gradient(135deg, #FFF9C4 0%, var(--blue-light) 100%); }
+    .kids-special-inner { max-width: 1200px; margin: 0 auto; }
+    .kids-hero-card { background: var(--white); border-radius: var(--radius-lg); padding: 60px 50px; box-shadow: 0 20px 60px rgba(110,198,255,0.18); display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; position: relative; overflow: hidden; }
+    .kids-hero-card::before { content: '👶'; position: absolute; font-size: 10rem; opacity: 0.04; right: 20px; bottom: -20px; }
+    .kids-card-label { display: inline-block; background: #FFD93D; color: var(--text); font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.1rem; padding: 8px 22px; border-radius: 50px; margin-bottom: 18px; animation: bounceIn 0.8s both; }
+    @keyframes bounceIn { 0% { transform: scale(0); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+    .kids-hero-card h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 16px; line-height: 1.3; }
+    .kids-hero-card h2 span { color: var(--blue-dark); }
+    .kids-hero-card p { color: var(--text-light); font-size: 0.97rem; line-height: 1.8; margin-bottom: 24px; }
+    .kids-features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .kids-mini-card { background: var(--yellow-light); border-radius: 14px; padding: 18px 14px; text-align: center; border: 2px solid var(--yellow-mid); transition: transform 0.2s; }
+    .kids-mini-card:hover { transform: translateY(-4px) scale(1.04); }
+    .kids-mini-card .emoji { font-size: 1.8rem; margin-bottom: 6px; }
+    .kids-mini-card span { font-size: 0.82rem; font-weight: 600; color: var(--text); display: block; }
+    .kids-image { border-radius: var(--radius); overflow: hidden; }
+    .kids-image img { width: 100%; height: 360px; object-fit: cover; display: block; }
+
+    /* ALL SERVICES QUICK LIST */
+    .quick-list { padding: 60px 2rem; background: var(--blue-dark); }
+    .quick-list-inner { max-width: 1200px; margin: 0 auto; }
+    .quick-list h2 { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 2rem; color: var(--white); text-align: center; margin-bottom: 40px; }
+    .quick-list h2 span { color: var(--yellow); }
+    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .quick-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 24px 18px; text-align: center; transition: background 0.3s, transform 0.3s; }
+    .quick-item:hover { background: rgba(255,217,61,0.15); transform: translateY(-4px); }
+    .quick-item .icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .quick-item .name { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 4px; }
+    .quick-item .from { font-size: 0.82rem; color: var(--yellow); }
+
+    footer { background: var(--text); color: rgba(255,255,255,0.8); padding: 60px 2rem 30px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .logo { color: var(--yellow); margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
+    .footer-col h4 { font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 1rem; color: var(--yellow); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--yellow); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.45); }
+
+    @media (max-width: 1024px) {
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 20px 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); gap: 14px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .service-block, .service-block.reverse { grid-template-columns: 1fr; direction: ltr; gap: 36px; }
+      .kids-hero-card { grid-template-columns: 1fr; padding: 40px 30px; gap: 36px; }
+      .kids-features-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .quick-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .kids-features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Начало</a></li>
+      <li><a href="about.html">За нас</a></li>
+      <li><a href="services.html" class="active">Услуги</a></li>
+      <li><a href="prices.html">Ценоразпис</a></li>
+      <li><a href="contact.html" class="nav-cta">Запази час</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-breadcrumb"><a href="index.html">Начало</a> → Услуги</div>
+    <h1>Нашите <span>дентални услуги</span></h1>
+    <p>Пълен спектър от лечения за цялото семейство – от профилактика до импланти, всичко на едно място.</p>
+  </div>
+</section>
+
+<!-- IMPLANTOLOGY -->
+<section class="services-section">
+  <div class="service-block">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=700&q=80" alt="Имплантология">
+      <div class="service-color-tag tag-yellow">🔩 Имплантология</div>
+    </div>
+    <div class="service-info">
+      <div class="service-number">01</div>
+      <span class="service-emoji-big">🔩</span>
+      <h2>Имплантология – <span>Трайно решение</span></h2>
+      <p>Зъбните импланти са най-добрата дългосрочна замяна на липсващи зъби. Изглеждат, чувстват се и функционират точно като естествени зъби.</p>
+      <p>Използваме импланти от премиум марки с над 30 години доказана ефективност. Процедурата се извършва под местна анестезия и е практически безболезнена.</p>
+      <ul class="service-bullets">
+        <li><div class="bullet-icon">✓</div><span>3D планиране с компютърна томография</span></li>
+        <li><div class="bullet-icon">✓</div><span>Минимално инвазивна техника</span></li>
+        <li><div class="bullet-icon">✓</div><span>Трайност 20+ години при правилна грижа</span></li>
+        <li><div class="bullet-icon">✓</div><span>Гаранция от 5 години на импланта</span></li>
+      </ul>
+      <div class="service-price-hint">💰 От 1 200 лв. за имплант</div>
+      <br>
+      <a href="contact.html" class="btn-service">Запази час →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ORTHODONTICS -->
+<section class="services-section" style="background: var(--blue-light);">
+  <div class="service-block reverse">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1588776814546-daab30f310ce?w=700&q=80" alt="Ортодонтия">
+      <div class="service-color-tag tag-blue">😁 Ортодонтия</div>
+    </div>
+    <div class="service-info">
+      <div class="service-number">02</div>
+      <span class="service-emoji-big">😁</span>
+      <h2>Ортодонтия – <span>Красива наредба</span></h2>
+      <p>Правилно наредените зъби не са само въпрос на естетика – те са важни за правилното дъвкане, говора и хигиената. Лечим деца от 7 години и възрастни.</p>
+      <p>Предлагаме метални брекети, прозрачни брекети и невидими алайнери (Invisalign). Всяко лечение е индивидуално планирано.</p>
+      <ul class="service-bullets">
+        <li><div class="bullet-icon blue">✓</div><span>Метални и керамични брекети</span></li>
+        <li><div class="bullet-icon blue">✓</div><span>Невидими алайнери Invisalign</span></li>
+        <li><div class="bullet-icon blue">✓</div><span>Детска и юношеска ортодонтия</span></li>
+        <li><div class="bullet-icon blue">✓</div><span>Ортодонтия за възрастни</span></li>
+      </ul>
+      <div class="service-price-hint">💰 От 150 лв. на месец</div>
+      <br>
+      <a href="contact.html" class="btn-service">Запази консултация →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHITENING -->
+<section class="services-section">
+  <div class="service-block">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=700&q=80" alt="Избелване на зъби">
+      <div class="service-color-tag tag-yellow">✨ Избелване</div>
+    </div>
+    <div class="service-info">
+      <div class="service-number">03</div>
+      <span class="service-emoji-big">✨</span>
+      <h2>Избелване – <span>Ослепителна усмивка</span></h2>
+      <p>Перфектно белите зъби са на едно посещение разстояние! Нашите методи за избелване са безопасни, ефективни и дават трайни резултати до 2 години.</p>
+      <p>Предлагаме клинично избелване (1 посещение) и домашни шини за избелване. Комбинираният метод дава най-добри резултати.</p>
+      <ul class="service-bullets">
+        <li><div class="bullet-icon">✓</div><span>До 8 нюанса по-бели зъби</span></li>
+        <li><div class="bullet-icon">✓</div><span>Безопасна, клинично изпитана система</span></li>
+        <li><div class="bullet-icon">✓</div><span>Минимална чувствителност</span></li>
+        <li><div class="bullet-icon">✓</div><span>Резултати, трайни до 2 години</span></li>
+      </ul>
+      <div class="service-price-hint">💰 От 250 лв.</div>
+      <br>
+      <a href="contact.html" class="btn-service">Запази час →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROSTHETICS -->
+<section class="services-section" style="background: var(--yellow-light);">
+  <div class="service-block reverse">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1571772996211-2f02c9727629?w=700&q=80" alt="Протезиране">
+      <div class="service-color-tag tag-yellow">🦷 Протезиране</div>
+    </div>
+    <div class="service-info">
+      <div class="service-number">04</div>
+      <span class="service-emoji-big">🦷</span>
+      <h2>Протезиране – <span>Пълна усмивка</span></h2>
+      <p>Загубени зъби не трябва да са пречка за красива усмивка и качествен живот. Нашите протетични решения са индивидуално изработени в сертифицирана лаборатория.</p>
+      <p>Предлагаме фиксирани корони и мостове, подвижни протези, частични протези и протези върху импланти.</p>
+      <ul class="service-bullets">
+        <li><div class="bullet-icon">✓</div><span>Корони от циркониев диоксид</span></li>
+        <li><div class="bullet-icon">✓</div><span>Метало-керамични и безметални мостове</span></li>
+        <li><div class="bullet-icon">✓</div><span>Пълни и частични протези</span></li>
+        <li><div class="bullet-icon">✓</div><span>Протези върху импланти</span></li>
+      </ul>
+      <div class="service-price-hint">💰 От 400 лв. за корона</div>
+      <br>
+      <a href="contact.html" class="btn-service">Запази час →</a>
+    </div>
+  </div>
+</section>
+
+<!-- KIDS SECTION SPECIAL -->
+<section class="kids-special">
+  <div class="kids-special-inner">
+    <div class="kids-hero-card">
+      <div>
+        <div class="kids-card-label">👶 Специално за деца!</div>
+        <h2>Детска стоматология – <span>забавно и безболезнено</span></h2>
+        <p>Вярваме, че ранното въвеждане на децата в света на денталната хигиена е ключово за здравето им. Нашият подход е игровият – правим прегледите забавни!</p>
+        <p>Д-р Ива Спасова е специалист по детска стоматология с опит над 12 години. Тя знае точно как да спечели доверието на вашето дете.</p>
+        <div class="kids-features-grid">
+          <div class="kids-mini-card"><div class="emoji">🦷</div><span>Лечение на млечни зъби</span></div>
+          <div class="kids-mini-card"><div class="emoji">🛡️</div><span>Фисурно запечатване</span></div>
+          <div class="kids-mini-card"><div class="emoji">💧</div><span>Флуорна профилактика</span></div>
+          <div class="kids-mini-card"><div class="emoji">😁</div><span>Детска ортодонтия</span></div>
+          <div class="kids-mini-card"><div class="emoji">🎨</div><span>Цветни коронки</span></div>
+          <div class="kids-mini-card"><div class="emoji">📚</div><span>Обучение по хигиена</span></div>
+        </div>
+      </div>
+      <div class="kids-image">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="Детска стоматология">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK SERVICE LIST -->
+<section class="quick-list">
+  <div class="quick-list-inner">
+    <h2>Всички наши <span>услуги</span></h2>
+    <div class="quick-grid">
+      <div class="quick-item"><div class="icon">🔩</div><div class="name">Имплантология</div><div class="from">от 1 200 лв.</div></div>
+      <div class="quick-item"><div class="icon">😁</div><div class="name">Ортодонтия</div><div class="from">от 150 лв./мес.</div></div>
+      <div class="quick-item"><div class="icon">✨</div><div class="name">Избелване</div><div class="from">от 250 лв.</div></div>
+      <div class="quick-item"><div class="icon">🦷</div><div class="name">Протезиране</div><div class="from">от 400 лв.</div></div>
+      <div class="quick-item"><div class="icon">👶</div><div class="name">Детска стоматология</div><div class="from">от 30 лв.</div></div>
+      <div class="quick-item"><div class="icon">🛡️</div><div class="name">Профилактика</div><div class="from">от 60 лв.</div></div>
+      <div class="quick-item"><div class="icon">🔬</div><div class="name">Дигитален рентген</div><div class="from">от 25 лв.</div></div>
+      <div class="quick-item"><div class="icon">💊</div><div class="name">Ендодонтия</div><div class="from">от 200 лв.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><div class="logo-icon">🦷</div>Зъбчо</a>
+      <p>Семейна Дентална Клиника Зъбчо – вашият партньор за здрави и красиви усмивки от 2009 година.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <ul>
+        <li><a href="index.html">Начало</a></li>
+        <li><a href="about.html">За нас</a></li>
+        <li><a href="services.html">Услуги</a></li>
+        <li><a href="prices.html">Ценоразпис</a></li>
+        <li><a href="contact.html">Контакти</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="services.html">Имплантология</a></li>
+        <li><a href="services.html">Ортодонтия</a></li>
+        <li><a href="services.html">Избелване</a></li>
+        <li><a href="services.html">Протезиране</a></li>
+        <li><a href="services.html">Детска стоматология</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <ul>
+        <li><a href="tel:+35929876543">📞 029 876 543</a></li>
+        <li><a href="mailto:info@zabcho.bg">✉️ info@zabcho.bg</a></li>
+        <li><a href="#">📍 бул. Витоша 42, София</a></li>
+        <li><a href="#">🕒 Пон–Пет: 9:00–19:00</a></li>
+        <li><a href="#">🕒 Съб: 9:00–14:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Семейна Дентална Клиника Зъбчо. Всички права запазени.</span>
+    <span>Направено с ❤️ за вашата усмивка</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.service-block, .kids-mini-card, .quick-item').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(28px)'; el.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(el);
+  });
+</script>
+</body>
+</html>
